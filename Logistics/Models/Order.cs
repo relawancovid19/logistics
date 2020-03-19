@@ -15,16 +15,21 @@ namespace Logistics.Models
         public ApplicationUser User { get; set; }
         public string Title { get; set; }
         public string Descriptions { get; set; }
+        public string Notes { get; set; }
         public Priority Priority { get; set; }
         public OrderStatus Status { get; set; }
         public string DeliveryAddress { get; set; }
         public Province Province { get; set; }
+        public Delivery Delivery { get; set; }
     }
     public enum OrderStatus
     {
+        Processing,
+        Pending,
         Rejected,
         Approved,
-        Pending
+        Deleted,
+        Delivered
     }
     public enum Priority
     {
@@ -42,7 +47,6 @@ namespace Logistics.Models
     public class Delivery
     {
         public string Id { get; set; }
-        public Order Order { get; set; }
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset ETA { get; set; }
         public string TrackingNumber { get; set; }

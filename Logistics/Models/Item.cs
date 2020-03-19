@@ -24,6 +24,7 @@ namespace Logistics.Models
         Pasang,
         Rol,
         Kg,
+        Ton,
         Meter,
         Vial
     }
