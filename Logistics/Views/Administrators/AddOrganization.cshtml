@@ -129,7 +129,7 @@
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit">save</button>
+                        <input type="submit" value="Tambah" class="btn btn-info" />
                         @Html.ActionLink("Batal", "Organizations", null, new { @class = "btn btn-inverse" })
                     </div>
                 }
@@ -138,8 +138,89 @@
         </div>
     </div>
 </div>
+@section styles
+{
+    <link href="~/assets/vendor/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    <link rel="stylesheet" href="~/assets/vendor/icon-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/icon-line/css/simple-line-icons.css">
 }
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/assets/js/components/hs.sticky-block.js"></script>
+    <script src="~/assets/vendor/sweetalert/sweetalert.min.js"></script>
+    <script src="~/assets/js/components/hs.tabs.js"></script>>
+    <script>
+        $(document).ready(function () {
+            $("#AddOrganization").submit(function (e) {
+                e.preventDefault()
+                $('#loading').fadeIn();
+                var data = $(this).serialize();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AddOrganization", "Administrators")',
+                    data: data,
+                    success: function (data) {
+                        $("#loading").fadeOut();
+                        if (data == 'KO') {
+                            swal({
+                                title: "Terjadi Kesalahan",
+                                text: "Mohon maaf, terdapat kesalahan dalam sistem kami, silahkan ulangi lagi",
+                                type: "error",
+                                button: true,
+                            })
+                        }
+                        else if (data == 'OK') {
+                            swal({
+                                title: "Sukses",
+                                text: "Kamu telah mendaftar untuk menjadi relawan , namun status masih menunggu persetujuan dari Admin",
+                                type: "success",
+                                button: true,
+                            })
+                            setTimeout(function () {// wait for 5 secs(2)
+                                location.reload(); // then reload the page.(3)
+                            }, 3000);
+                        }
+                        else if (data == 'NOTLOGIN')
+                        {
+                            swal({
+                                title: "Akun Belum Login",
+                                text: "Silahkan login jika ingin mendaftar menjadi relawan",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                        else if (data == 'REGISTERED') {
+                            swal({
+                                title: "Akun sudah terdaftar",
+                                text: "Sebelumnya kamu sudah pernah melakukan pendaftaran, silahkan login dan jadilah relawan",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                        else if (data == 'EXIST') {
+                            swal({
+                                title: "Akun sudah terdaftar",
+                                text: "Kamu sudah mendaftar pada acara ini",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                        else {
+                            swal({
+                                title: "Sudah Mendaftar",
+                                text: "Kamu telah mendaftar untuk mengikuti acara ini, namun kami masih melakukan validasi pembayaran",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                    },
+                    complete: function () {
+                        $("#loading").fadeOut();
+                    }
+                });
+            });
+        });
+    </script>
+    }
 

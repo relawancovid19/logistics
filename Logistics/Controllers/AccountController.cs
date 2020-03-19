@@ -155,7 +155,12 @@ namespace Logistics.Controllers
         {
             return View();
         }
-
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
+        }
         //
         // POST: /Account/ForgotPassword
         [HttpPost]
