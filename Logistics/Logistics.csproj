@@ -5639,6 +5639,7 @@
     <Content Include="Views\Organizations\Orders.cshtml" />
     <Content Include="Views\Home\CreateOrder.cshtml" />
     <Content Include="Views\Home\PreviewOrder.cshtml" />
+    <Content Include="Views\Shared\_LayoutAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
