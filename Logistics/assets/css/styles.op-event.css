@@ -21,8 +21,8 @@ body {
 }
 
 a {
-  color: #359dcf;
-  outline: none;
+    color: #f5e419;
+    outline: none;
 }
 
 a:focus,
@@ -2752,8 +2752,8 @@ body[class*="u-body--header-side"].u-body--header-side-opened .u-header__overlay
 ------------------------------------*/
 /* Button Primary */
 .u-btn-primary {
-  color: #fff;
-  background-color: #359dcf;
+    color: #fff;
+    background-color: #f5e419;
 }
 
 .u-btn-primary:hover, .u-btn-primary.active {
@@ -26258,7 +26258,7 @@ pre[class*="language-"] .toolbar-item a {
 
 /* Primary Colors */
 .g-bg-primary {
-    background-color: #7ecf35 !important;
+    background-color: #f5e419 !important;
 }
 
 .g-bg-primary--hover:hover {

@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Logistics.Models;
 using Logistics.ViewModels;
+using System.Data.Entity;
 
 namespace Logistics.Controllers
 {
@@ -100,8 +101,16 @@ namespace Logistics.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public async Task<ActionResult> Register()
         {
+            var province = await db.Provinces
+                        .Select(i => new SelectListItem()
+                        {
+                            Text = i.Name,
+                            Value = i.IdProvince,
+                            Selected = false
+                        }).ToArrayAsync();
+            ViewBag.Provinces = province;
             return View();
         }
 
@@ -110,7 +119,7 @@ namespace Logistics.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(ViewModels.Register model)
         {
             if (ModelState.IsValid)
             {

@@ -5633,6 +5633,7 @@
     <Content Include="Views\Organizations\AddStock.cshtml" />
     <Content Include="Views\Organizations\EditItem.cshtml" />
     <Content Include="Views\Organizations\Orders.cshtml" />
+    <Content Include="Views\Shared\_LayoutAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
