@@ -2274,8 +2274,9 @@ body[class*="u-body--header-side"].u-body--header-side-opened .u-header__overlay
 
 /* Button Primary */
 .u-btn-primary {
-  color: #fff;
-  background-color: #72c02c; }
+    color: #fff;
+    background-color: #f5f219;
+}
 
 .u-btn-primary:hover, .u-btn-primary.active {
   border-color: #8cd54a;
