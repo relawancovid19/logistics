@@ -119,29 +119,60 @@ namespace Logistics.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(ViewModels.Register model)
+        public async Task<ActionResult> Register(ViewModels.Register register)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                var currentUTCTime = DateTimeOffset.UtcNow;
+                var province = await db.Provinces.Where(x => x.IdProvince == register.Province).SingleOrDefaultAsync();
+                var user = new Models.ApplicationUser()
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    Id = Guid.NewGuid().ToString(),
+                    FullName = register.FullName,
+                    UserName = register.Email,
+                    PhoneNumber = register.PhoneNumber,
+                    Registered = DateTimeOffset.UtcNow,
+                    Email = register.Email,
+                    Institution = register.Institution,
+                    Title = register.Title
 
-                    return RedirectToAction("Index", "Home");
+                };
+                var searchUser = await db.Users.Where(x => x.Email == register.Email).SingleOrDefaultAsync();
+                if (searchUser == null)
+                {
+                    var addVolunteer = await UserManager.CreateAsync(user, register.Password);
+                    var currentUser = await UserManager.FindByEmailAsync(register.Email);
+                    var addToRoleResult = await UserManager.AddToRoleAsync(currentUser.Id, "Volunteer");
+                    if (addVolunteer.Succeeded && addToRoleResult.Succeeded)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        var addUserProvince = await db.Users.Include("Province").
+                                                        Where(x => x.Id == currentUser.Id).SingleOrDefaultAsync();
+                        addUserProvince.Province = province;
+                        var result = await db.SaveChangesAsync();
+                        if (result > 0)
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                       
+                    }
+                    AddErrors(addVolunteer);
                 }
-                AddErrors(result);
+                else
+                {
+                    return View("Information");
+                }
+               
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View(register);
         }
 
         //
