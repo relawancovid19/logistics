@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Volunteers.Helpers
+namespace Logistics.Helpers
 {
     public class UploadFileHelper
     {

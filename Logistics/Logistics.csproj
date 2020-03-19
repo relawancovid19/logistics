@@ -191,6 +191,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -5626,6 +5627,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_LayoutOrganizations.cshtml" />
     <Content Include="Views\Administrators\AddOrganization.cshtml" />
+    <Content Include="Views\Administrators\Organizations.cshtml" />
+    <Content Include="Views\Organizations\Items.cshtml" />
+    <Content Include="Views\Organizations\AddItem.cshtml" />
+    <Content Include="Views\Organizations\AddStock.cshtml" />
+    <Content Include="Views\Organizations\EditItem.cshtml" />
+    <Content Include="Views\Organizations\Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

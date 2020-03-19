@@ -77,7 +77,7 @@ namespace Logistics.Controllers
                         var result = await db.SaveChangesAsync();
                         if (result > 0)
                         {
-                            return RedirectToAction("Organizations");
+                            return Json("OK", JsonRequestBehavior.AllowGet);
                         }
                     }
                 }
