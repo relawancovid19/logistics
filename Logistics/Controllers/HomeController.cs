@@ -54,11 +54,54 @@ namespace Logistics.Controllers
             }
             return View();
         }
+
+        public async Task<ActionResult> AddItem(ViewModels.AddItem data)
+        {
+            var order = await db.Orders.Include("Items").Where(x => x.Id == data.IdOrder && x.User.UserName == User.Identity.Name).OrderByDescending(x => x.Created).FirstOrDefaultAsync();
+            if(order != null)
+            {
+                var item = await db.Items.FindAsync(data.Id);
+                var addItem = new Models.OrderItem()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Amount = data.Amount,
+                    Item = item,
+                    Unit = item.Unit
+                };
+                order.Items.Add(addItem);
+                var result = await db.SaveChangesAsync();
+                if(result > 0)
+                {
+                    return RedirectToAction("PreviewOrder", new { id = data.IdOrder });
+                }
+            }
+            return View("Error");
+        }
+
         public async Task<ActionResult> PreviewOrder(string id)
         {
             var items = await db.Items.ToListAsync();
             ViewBag.Items = items;
+            ViewBag.Id = id;
+            var cart = await db.Orders.Include("Items").Where(x => x.Id == id && x.User.UserName == User.Identity.Name).OrderByDescending(x => x.Created).FirstOrDefaultAsync();
+            ViewBag.Cart = cart.Items;
+            ViewBag.Status = cart.Status.ToString();
             return View();
+        }
+        public async Task<ActionResult> SubmitOrder(string id)
+        {
+            var order = await db.Orders.Include("Items").Where(x => x.Id == id && x.User.UserName == User.Identity.Name).OrderByDescending(x => x.Created).FirstOrDefaultAsync();
+            if(order != null)
+            {
+                order.Status = Models.OrderStatus.Pending;
+                db.Entry(order).State = EntityState.Modified;
+                var result = await db.SaveChangesAsync();
+                if (result > 0)
+                {
+                    return Json("OK", JsonRequestBehavior.AllowGet);
+                }
+            }
+            return View("Error");
         }
         public ActionResult About()
         {

@@ -36,6 +36,7 @@ namespace Logistics.ViewModels
     }
     public class AddItem
     {
+        public string IdOrder { get; set; }
         public string Id { get; set; }
         public string Name { get; set; }
         [System.Web.Mvc.AllowHtml]
