@@ -96,8 +96,13 @@ namespace Logistics.Controllers
         }
         public async Task<ActionResult> Orders()
         {
-            var orders = await db.Orders.Where(x => x.Status != Models.OrderStatus.Deleted).ToListAsync();
+            var orders = await db.Orders.Include("User").Include("Province").Where(x => x.Status != Models.OrderStatus.Deleted).ToListAsync();
             return View(orders);
+        }
+        public async Task<ActionResult> DetailOrder(string id)
+        {
+            var order = await db.Orders.Include("Items").Where(x => x.Id == id).ToListAsync();
+            return View(order);
         }
     }
 }
