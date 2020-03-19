@@ -1,14 +1,85 @@
-﻿
-
+﻿@model Logistics.ViewModels.Order
 <section class="g-pos-rel">
     <div class="js-carousel" data-autoplay="true" data-infinite="true" data-fade="true" data-speed="5000">
         <div class="js-slide g-min-height-100vh g-flex-centered g-bg-cover g-bg-pos-top-center g-bg-img-hero g-bg-black-opacity-0_3--after" style="background-image: url(/assets/images/backgrounds/banner1.jpg);"></div>
         <div class="js-slide g-min-height-100vh g-flex-centered g-bg-cover g-bg-pos-top-center g-bg-img-hero g-bg-black-opacity-0_3--after" style="background-image: url(/assets/images/backgrounds/banner2.jpg);"></div>
     </div>
-    <div class="u-bg-overlay__inner g-absolute-centered w-100">
-        <div class="container text-center g-max-width-750">
-            <div class="text-uppercase u-heading-v2-4--bottom g-brd-primary">
-                <h2 class="u-heading-v2__title g-line-height-1 g-letter-spacing-3 g-font-weight-700 g-font-size-60 g-color-white mb-0">Perencanaan<br />&<br /> Pengiriman</h2>
+    <div class="g-absolute-centered--y g-left-0 g-right-0">
+        <div class="container g-z-index-1">
+            <div class="row">
+                <div class="g-pt-55 col-lg-5 align-self-center g-mb-0--lg">
+                    <div class="g-bg-white g-rounded-5 g-pa-30">
+                        <h3 class="h6 g-color-black g-font-weight-600 text-uppercase text-center g-mb-25">formulir permintaan barang</h3>
+
+                        <!-- Promo Block - Form -->
+                        @using (Html.BeginForm("CreateOrder", "Home", FormMethod.Post, new { @class = "form-horizontal form-material", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+
+                                <div class="col-xs-12">
+                                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control g-px-10 g-py-12", placeholder = "Judul Permintaan", required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-xs-12">
+                                    @Html.TextAreaFor(m => m.Descriptions, new { @class = "form-control g-px-10 g-py-12", placeholder = "Jelaskan Lebih Detail Permintaan anda", required = "required" })
+                                    @Html.ValidationMessageFor(m => m.Descriptions, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-xs-12">
+                                    @Html.EnumDropDownListFor(m => m.Priority, new { @class = "form-control ", placeholder = "Prioritas", required = "required" })
+                                    @Html.ValidationMessageFor(m => m.Priority, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    @Html.DropDownList("Province", (IEnumerable<SelectListItem>)ViewBag.Provinces, "Pilih Provinsi", new
+                                    {
+                                       @class = "form-control",
+                                       id = "Provinces",
+                                       style = "width:100%",
+                                       required = "required"
+                                    })
+                                    @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-xs-12">
+                                    @Html.TextAreaFor(m => m.DeliveryAddress, new { @class = "form-control g-px-10 g-py-12", placeholder = "Alamat Pengiriman", required = "required" })
+                                    @Html.ValidationMessageFor(m => m.DeliveryAddress, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group text-center m-t-20">
+                                <div class="col-xs-12">
+                                    <button id="register" type="submit" class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light"> Daftar</button>
+                                </div>
+                            </div>
+                            <div class="d-none d-sm-block d-md-none">
+                                <div class="h1" style="margin-bottom: 11.5rem"></div>
+                            </div>
+
+                        }
+                        <!-- End Promo Block - Form -->
+                    </div>
+                </div>
+
+                <!-- Promo Block - Info -->
+                <div class="col-lg-7 align-self-center g-color-white d-none d-lg-block">
+                    <div class="g-px-50--lg">
+                        <h2 class="g-color-white g-font-weight-600 g-font-size-40 g-font-size-60--md g-mb-30">
+                            Layanan Logistik
+                        </h2>
+                        <h1 class="h4 g-color-white g-font-weight-300 g-letter-spacing-1 mb-5">Gunakanlah layanan semaksimal mungkin dan ingatlah masih banyak orang yang membutuhkan</h1>
+                    </div>
+                </div>
+                <!-- End Promo Block - Info -->
             </div>
         </div>
     </div>
@@ -17,134 +88,57 @@
 <section class="g-py-80">
     <div class="container">
         <div class="text-uppercase u-heading-v2-4--bottom g-brd-primary g-mb-30">
-            <h2 class="u-heading-v2__title g-line-height-1 g-letter-spacing-2 g-font-weight-700 g-font-size-30 g-font-size-40--md g-color-black mb-0">Pilihan Barang</h2>
+            <h2 class="u-heading-v2__title g-line-height-1 g-letter-spacing-2 g-font-weight-700 g-font-size-30 g-font-size-40--md g-color-black mb-0">Ketersediaan Barang</h2>
         </div>
 
         <!-- Products Block -->
         <div class="row">
-            <div class="col-md-6 col-lg-4 g-mb-30 u-shadow-v1-7">
-                <!-- Article -->
-                <article class="u-shadow-v19 g-bg-white g-rounded-bottom-4">
-                    <!-- Figure Image -->
-                    <figure>
-                        <img class="w-100" src="~/assets/images/sample.png" alt="Image Description">
-                    </figure>
-                    <!-- End Figure Image -->
-                    <!-- Article Content -->
-                    <div class="g-pa-10">
-                        <h3 class="h4 g-mb-10 g-font-weight-600">
-                            <a class="g-color-main g-color-primary--hover g-text-underline--none--hover" href="#">Masker Penyaring Udara</a>
-                        </h3>
-                        <ul class="list-unstyled info-v5-3__info-list g-font-weight-700 g-color-black g-color-white--parent-hover g-font-size-12 text-uppercase g-mb-0">
-                            <li class="g-mb-20">
-                                <i class="g-color-primary g-color-white--parent-hover g-font-size-18 g-mr-10 fa fa-truck"></i>
-                                20 Box barang Tersedia
-                            </li>
-                        </ul>
-                        <hr class="g-brd-gray-light-v4 g-mt-15 g-mb-15">
+            @foreach (var item in ViewBag.Items)
+            {
+                
+                <div class="col-md-6 col-lg-3 g-mb-30">
+                    <!-- Article -->
+                    <article class="u-shadow-v1-7 g-bg-white g-rounded-bottom-4">
+                        <!-- Figure Image -->
+                        <figure>
+                            <img class="w-100" src="@item.Images" alt="Image Description">
+                        </figure>
+                        <!-- End Figure Image -->
+                        <!-- Article Content -->
+                        <div class="g-pa-10">
+                            <h3 class="h5 g-mb-10 g-font-weight-600">
+                                <a class="g-color-main g-color-primary--hover g-text-underline--none--hover" href="#">@item.Name</a>
+                            </h3>
+                            <ul class="list-unstyled info-v5-3__info-list g-font-weight-700 g-color-black g-color-white--parent-hover g-font-size-12 text-uppercase g-mb-0">
+                                <li class="g-mb-20">
+                                    <i class="g-color-primary g-color-white--parent-hover g-font-size-14 g-mr-10 fa fa-truck"></i>
+                                    @item.Amount @item.Unit.ToString() barang Tersedia
+                                </li>
+                            </ul>
+                            <hr class="g-brd-gray-light-v4 g-mt-15 g-mb-15">
 
-                        <!-- Article Images -->
-                        <!-- End Article Images -->
+                            <!-- Article Images -->
+                            <!-- End Article Images -->
 
-                        <footer class="d-flex justify-content-between align-items-center">
-                            <!-- Figure Comments -->
-                            <div class="media g-font-size-12">
-                                <img class="d-flex mr-3 rounded-circle g-width-30 g-height-30" src="~/assets/admin/images/users/1.jpg" alt="Image Description">
-                                <div class="media-body align-self-center text-uppercase">
-                                    <span class="u-link-v5 g-color-main g-color-primary--hover">Pemerintah Provinsi Jawa Barat</span>
+                            <footer class="d-flex justify-content-between align-items-center">
+                                <!-- Figure Comments -->
+                                <div class="media g-font-size-12">
+                                    <img class="d-flex mr-3 rounded-circle g-width-30 g-height-30" src="https://3.bp.blogspot.com/-BRV8kAVyi4I/XDX3S86Pk5I/AAAAAAAABwA/K5fnfc4c1VYps0EcV32qP6yB96kghqU3QCLcBGAs/s1600/logo%2Bjawa%2Bbarat.png" alt="Image Description">
+                                    <div class="media-body align-self-center text-uppercase">
+                                        <span class="u-link-v5 g-color-main g-color-primary--hover">Pemerintah Provinsi Jawa Barat</span>
+                                    </div>
+
                                 </div>
+                                <!-- End Figure Button -->
+                            </footer>
+                        </div>
+                        <!-- End Article Content -->
+                    </article>
+                    <!-- End Article -->
+                </div>
 
-                            </div>
-                            <!-- End Figure Button -->
-                        </footer>
-                    </div>
-                    <!-- End Article Content -->
-                </article>
-                <!-- End Article -->
-            </div>
+            }
 
-            <div class="col-md-6 col-lg-4 g-mb-30 u-shadow-v1-7">
-                <!-- Article -->
-                <article class="u-shadow-v19 g-bg-white g-rounded-bottom-4">
-                    <!-- Figure Image -->
-                    <figure>
-                        <img class="w-100" src="~/assets/images/sample.png" alt="Image Description">
-                    </figure>
-                    <!-- End Figure Image -->
-                    <!-- Article Content -->
-                    <div class="g-pa-10">
-                        <h3 class="h4 g-mb-10 g-font-weight-600">
-                            <a class="g-color-main g-color-primary--hover g-text-underline--none--hover" href="#">Masker Penyaring Udara</a>
-                        </h3>
-                        <ul class="list-unstyled info-v5-3__info-list g-font-weight-700 g-color-black g-color-white--parent-hover g-font-size-12 text-uppercase g-mb-0">
-                            <li class="g-mb-20">
-                                <i class="g-color-primary g-color-white--parent-hover g-font-size-18 g-mr-10 fa fa-truck"></i>
-                                20 Box barang Tersedia
-                            </li>
-                        </ul>
-                        <hr class="g-brd-gray-light-v4 g-mt-15 g-mb-15">
-
-                        <!-- Article Images -->
-                        <!-- End Article Images -->
-
-                        <footer class="d-flex justify-content-between align-items-center">
-                            <!-- Figure Comments -->
-                            <div class="media g-font-size-12">
-                                <img class="d-flex mr-3 rounded-circle g-width-30 g-height-30" src="~/assets/admin/images/users/1.jpg" alt="Image Description">
-                                <div class="media-body align-self-center text-uppercase">
-                                    <span class="u-link-v5 g-color-main g-color-primary--hover">Pemerintah Provinsi Jawa Barat</span>
-                                </div>
-
-                            </div>
-                            <!-- End Figure Button -->
-                        </footer>
-                    </div>
-                    <!-- End Article Content -->
-                </article>
-                <!-- End Article -->
-            </div>
-
-
-            <div class="col-md-6 col-lg-4 g-mb-30 u-shadow-v1-7">
-                <!-- Article -->
-                <article class="u-shadow-v19 g-bg-white g-rounded-bottom-4">
-                    <!-- Figure Image -->
-                    <figure>
-                        <img class="w-100" src="~/assets/images/sample.png" alt="Image Description">
-                    </figure>
-                    <!-- End Figure Image -->
-                    <!-- Article Content -->
-                    <div class="g-pa-10">
-                        <h3 class="h4 g-mb-10 g-font-weight-600">
-                            <a class="g-color-main g-color-primary--hover g-text-underline--none--hover" href="#">Masker Penyaring Udara</a>
-                        </h3>
-                        <ul class="list-unstyled info-v5-3__info-list g-font-weight-700 g-color-black g-color-white--parent-hover g-font-size-12 text-uppercase g-mb-0">
-                            <li class="g-mb-20">
-                                <i class="g-color-primary g-color-white--parent-hover g-font-size-18 g-mr-10 fa fa-truck"></i>
-                                20 Box barang Tersedia
-                            </li>
-                        </ul>
-                        <hr class="g-brd-gray-light-v4 g-mt-15 g-mb-15">
-
-                        <!-- Article Images -->
-                        <!-- End Article Images -->
-
-                        <footer class="d-flex justify-content-between align-items-center">
-                            <!-- Figure Comments -->
-                            <div class="media g-font-size-12">
-                                <img class="d-flex mr-3 rounded-circle g-width-30 g-height-30" src="~/assets/admin/images/users/1.jpg" alt="Image Description">
-                                <div class="media-body align-self-center text-uppercase">
-                                    <span class="u-link-v5 g-color-main g-color-primary--hover">Pemerintah Provinsi Jawa Barat</span>
-                                </div>
-
-                            </div>
-                            <!-- End Figure Button -->
-                        </footer>
-                    </div>
-                    <!-- End Article Content -->
-                </article>
-                <!-- End Article -->
-            </div>
         </div>
         <!-- End Products Block -->
     </div>

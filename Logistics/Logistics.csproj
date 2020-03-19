@@ -213,6 +213,10 @@
     <Compile Include="Migrations\202003191357369_OrderV3.Designer.cs">
       <DependentUpon>202003191357369_OrderV3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003191906529_Item_v1.cs" />
+    <Compile Include="Migrations\202003191906529_Item_v1.Designer.cs">
+      <DependentUpon>202003191906529_Item_v1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Order.cs" />
@@ -5633,7 +5637,8 @@
     <Content Include="Views\Organizations\AddStock.cshtml" />
     <Content Include="Views\Organizations\EditItem.cshtml" />
     <Content Include="Views\Organizations\Orders.cshtml" />
-    <Content Include="Views\Shared\_LayoutAccount.cshtml" />
+    <Content Include="Views\Home\CreateOrder.cshtml" />
+    <Content Include="Views\Home\PreviewOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -5664,6 +5669,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003191357369_OrderV3.resx">
       <DependentUpon>202003191357369_OrderV3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003191906529_Item_v1.resx">
+      <DependentUpon>202003191906529_Item_v1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

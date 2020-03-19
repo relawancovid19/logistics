@@ -12,7 +12,8 @@ namespace Logistics.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public string Descriptions { get; set; }
-        public ICollection<string> Images { get; set; }
+        //public ICollection<string> Images { get; set; }
+        public string Images { get; set; }
         public Unit Unit { get; set; }
         public ICollection<string> References { get; set; }
         public int Amount { get; set; }
