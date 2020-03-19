@@ -33,8 +33,9 @@ namespace Logistics.Controllers
             var item = await db.Items.Where(x => x.Id == data.Id).SingleOrDefaultAsync();
             if(item != null)
             {
-                item.Name = data.Name;
-                item.Descriptions = data.Descriptions;
+                item.Name = data.Name ?? item.Name;
+                item.Descriptions = data.Descriptions ?? item.Descriptions;
+                item.Images = await Helpers.UploadFileHelper.UploadBannerImage(data.Images) ?? item.Images; 
                 db.Entry(item).State = EntityState.Modified;
                 var result = await db.SaveChangesAsync();
                 if (result > 0)
@@ -75,8 +76,6 @@ namespace Logistics.Controllers
         {
             if (ModelState.IsValid)
             {
-                var imgaes = new List<string>();
-                imgaes.Add(await Helpers.UploadFileHelper.UploadBannerImage(addItem.Banner));
                 var newItem = new Models.Item()
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -84,7 +83,7 @@ namespace Logistics.Controllers
                     Descriptions = addItem.Descriptions,
                     Name = addItem.Name,
                     Unit = addItem.Unit,
-                    Images = imgaes
+                    Images = await Helpers.UploadFileHelper.UploadBannerImage(addItem.Banner)
                 };
                 db.Items.Add(newItem);
                 var result = await db.SaveChangesAsync();

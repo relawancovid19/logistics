@@ -41,7 +41,16 @@ namespace Logistics.ViewModels
         [System.Web.Mvc.AllowHtml]
         public string Descriptions { get; set; }
         public HttpPostedFileBase Banner { get; set; }
+        public HttpPostedFileBase Images { get; set; }
         public Unit Unit { get; set; }
         public int Amount { get; set; }
+    }
+    public class Order
+    {
+        public string Title { get; set; }
+        public string Descriptions { get; set; }
+        public Priority Priority { get; set; }
+        public string DeliveryAddress { get; set; }
+        public string Province { get; set; }
     }
 }

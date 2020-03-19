@@ -1,0 +1,304 @@
+﻿<section class="g-py-80">
+    <div class="container">
+        <div class="text-uppercase u-heading-v2-4--bottom g-brd-primary g-mb-30">
+            <h2 class="u-heading-v2__title g-line-height-1 g-letter-spacing-2 g-font-weight-700 g-font-size-30 g-font-size-40--md g-color-black mb-0">Ketersediaan Barang</h2>
+        </div>
+
+        <!-- Products Block -->
+        <div class="row">
+            <div class="col-lg-9 g-mb-50 g-mb-0--lg">
+                @foreach (var item in ViewBag.Items)
+                {
+
+                    <div class="col-md-6 col-lg-3 g-mb-30">
+                        <!-- Article -->
+                        <article class="u-shadow-v1-7 g-bg-white g-rounded-bottom-4">
+                            <!-- Figure Image -->
+                            <figure>
+                                <img class="w-100" src="@item.Images" alt="Image Description">
+                            </figure>
+                            <!-- End Figure Image -->
+                            <!-- Article Content -->
+                            <div class="g-pa-10">
+                                <h3 class="h5 g-mb-10 g-font-weight-600">
+                                    <a class="g-color-main g-color-primary--hover g-text-underline--none--hover" href="#">@item.Name</a>
+                                </h3>
+                                <ul class="list-unstyled info-v5-3__info-list g-font-weight-700 g-color-black g-color-white--parent-hover g-font-size-12 text-uppercase g-mb-0">
+                                    <li class="g-mb-20">
+                                        <i class="g-color-primary g-color-white--parent-hover g-font-size-14 g-mr-10 fa fa-truck"></i>
+                                        @item.Amount @item.Unit.ToString() barang Tersedia
+                                    </li>
+                                </ul>
+                                <hr class="g-brd-gray-light-v4 g-mt-15 g-mb-15">
+
+                                <!-- Article Images -->
+                                <!-- End Article Images -->
+
+                                <footer class="d-flex justify-content-between align-items-center">
+                                    <!-- Figure Comments -->
+                                    <div class="media g-font-size-12">
+                                        <img class="d-flex mr-3 rounded-circle g-width-30 g-height-30" src="https://3.bp.blogspot.com/-BRV8kAVyi4I/XDX3S86Pk5I/AAAAAAAABwA/K5fnfc4c1VYps0EcV32qP6yB96kghqU3QCLcBGAs/s1600/logo%2Bjawa%2Bbarat.png" alt="Image Description">
+                                        <div class="media-body align-self-center text-uppercase">
+                                            <span class="u-link-v5 g-color-main g-color-primary--hover">Pemerintah Provinsi Jawa Barat</span>
+                                        </div>
+
+                                    </div>
+                                    <!-- End Figure Button -->
+                                </footer>
+                            </div>
+                            <!-- End Article Content -->
+                        </article>
+                        <!-- End Article -->
+                    </div>
+
+                }
+                <div id="stickyblock-end"></div>
+            </div>
+
+            <div class="col-lg-3">
+                <div id="stickyblock-start" class="js-sticky-block g-sticky-block--lg g-pt-20" data-start-point="#stickyblock-start" data-end-point="#stickyblock-end">
+                    <!-- News Feed -->
+                    <div class="g-mb-40">
+
+                        <!-- Article -->
+                        <div class="d-lg-none d-xl-none d-md-block">
+                            <div class="u-heading-v3-1 g-mb-30">
+                                <h2 class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary">Jadilah Relawan</h2>
+                            </div>
+                        </div>
+                        <div class="d-lg-none d-none d-lg-block">
+                            <div class="u-heading-v3-1 g-mb-30 g-pt-105">
+                                <h2 class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary">Jadilah Relawan</h2>
+                            </div>
+                        </div>
+                        <img class="img-fluid w-100 g-mb-20"
+                             src="~/assets/images/vector.png"
+                             alt="Vector">
+
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <a href="#register" class="btn u-btn-primary btn-lg btn-block g-mr-10 g-mb-15 text-uppercase">Daftar Sekarang</a>
+                        }
+                        else
+                        {
+                            <form id="registrationFormTop" method="post">
+                                <input type="hidden" name="Id" value="7798" />
+                                @if (ViewBag.Status == "Pending")
+                                {
+                                    <div class="g-brd-primary--focus text-center g-mb-15">
+                                        <div class="g-bg-primary g-color-white g-font-size-16">Menunggu Persetujuan</div>
+                                        <div class="form-control g-color-gray-dark-v4 g-brd-primary g-font-size-14 rounded-0">
+                                            <div class="text-center g-font-size-14 g-color-gray-dark-v5">
+                                                Terima kasih Anda telah melakukan pendaftaran sebagai relawan
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else if (ViewBag.Status == "Approved")
+                                {
+                                    <div class="g-brd-primary--focus text-center g-mb-15">
+                                        <div class="g-bg-primary g-color-primary g-font-size-16">Kamu Relawan</div>
+                                        <div class="form-control g-color-gray-dark-v4 g-brd-primary g-font-size-14 rounded-0">
+                                            <div class="text-center g-font-size-14 g-color-gray-dark-v5">
+                                                Terimakasih Anda sudah ikut berperan sebagai relawan dalam pekerjaan ini
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else if (ViewBag.Status == "Rejected")
+                                {
+                                    <div class="g-brd-primary--focus text-center g-mb-15">
+                                        <div class="g-bg-primary g-color-white g-font-size-16">Halo</div>
+                                        <div class="form-control g-color-gray-dark-v4 g-brd-primary g-font-size-14 rounded-0">
+                                            <div class="text-center g-font-size-14 g-color-gray-dark-v5">
+                                                Mohon maaf kriteria kamu kurang cocok untuk pekerjaan ini mungkin coba lagi nanti
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <button type="submit" role="button" class="btn u-btn-primary btn-lg btn-block g-mr-10 g-mb-15 text-uppercase">Daftar Sekarang</button>
+                                }
+
+                            </form>
+                        }
+
+                        <!-- End Article -->
+                    </div>
+                </div>
+
+                <!-- End Products Block -->
+                </div>
+        </div>
+</section>
+
+<div id="loading" class="preloader">
+    <div class="loader"></div>
+
+</div>
+
+@section styles
+{
+    <link href="~/assets/vendor/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="~/assets/vendor/icon-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/icon-line/css/simple-line-icons.css">
+}
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/assets/js/components/hs.sticky-block.js"></script>
+    <script src="~/assets/vendor/sweetalert/sweetalert.min.js"></script>
+    <script src="~/assets/js/components/hs.tabs.js"></script>>
+    <script>
+        $(document).ready(function () {
+            $("#registrationForm").submit(function (e) {
+                e.preventDefault()
+                $('#loading').fadeIn();
+                var data = $(this).serialize();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Apply", "Jobs")',
+                    data: data,
+                    success: function (data) {
+                        $("#loading").fadeOut();
+                        if (data == 'KO') {
+                            swal({
+                                title: "Terjadi Kesalahan",
+                                text: "Mohon maaf, terdapat kesalahan dalam sistem kami, silahkan ulangi lagi",
+                                type: "error",
+                                button: true,
+                            })
+                        }
+                        else if (data == 'OK') {
+                            swal({
+                                title: "Sukses",
+                                text: "Kamu telah mendaftar untuk menjadi relawan , namun status masih menunggu persetujuan dari Admin",
+                                type: "success",
+                                button: true,
+                            })
+                            setTimeout(function () {// wait for 5 secs(2)
+                                location.reload(); // then reload the page.(3)
+                            }, 3000);
+                        }
+                        else if (data == 'NOTLOGIN')
+                        {
+                            swal({
+                                title: "Akun Belum Login",
+                                text: "Silahkan login jika ingin mendaftar menjadi relawan",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                        else if (data == 'REGISTERED') {
+                            swal({
+                                title: "Akun sudah terdaftar",
+                                text: "Sebelumnya kamu sudah pernah melakukan pendaftaran, silahkan login dan jadilah relawan",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                        else if (data == 'EXIST') {
+                            swal({
+                                title: "Akun sudah terdaftar",
+                                text: "Kamu sudah mendaftar pada acara ini",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                        else {
+                            swal({
+                                title: "Sudah Mendaftar",
+                                text: "Kamu telah mendaftar untuk mengikuti acara ini, namun kami masih melakukan validasi pembayaran",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                    },
+                    complete: function () {
+                        $("#loading").fadeOut();
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#registrationFormTop").submit(function (e) {
+                e.preventDefault()
+                $('#loading').fadeIn();
+                var data = $(this).serialize();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ApplyJob", "Jobs")',
+                    data: data,
+                    success: function (data) {
+                        $("#loading").fadeOut();
+                        if (data == 'KO') {
+                            swal({
+                                title: "Terjadi Kesalahan",
+                                text: "Mohon maaf, terdapat kesalahan dalam sistem kami, silahkan ulangi lagi",
+                                type: "error",
+                                button: true,
+                            })
+                        }
+                        else if (data == 'OK') {
+                            swal({
+                                title: "Sukses",
+                                text: "Kamu telah mendaftar untuk menjadi relawan , namun status masih menunggu persetujuan admin",
+                                type: "success",
+                                button: true,
+                            })
+                            setTimeout(function () {// wait for 5 secs(2)
+                                location.reload(); // then reload the page.(3)
+                            }, 3000);
+                        }
+                        else if (data == 'NOTLOGIN')
+                        {
+                            swal({
+                                title: "Akun Belum Login",
+                                text: "Silahkan login jika ingin mendaftar menjadi relawan",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                        else if (data == 'REGISTERED') {
+                            swal({
+                                title: "Akun sudah terdaftar",
+                                text: "Sebelumnya kamu sudah pernah melakukan pendaftaran, silahkan login dan lakukan jadilah relawan",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                        else if (data == 'EXIST') {
+                            swal({
+                                title: "Akun sudah terdaftar",
+                                text: "Kamu sudah mendaftar pada acara ini",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                        else {
+                            swal({
+                                title: "Sudah Mendaftar",
+                                text: "Kamu telah mendaftar untuk mengikuti acara ini, namun kami masih melakukan validasi pembayaran",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                    },
+                    complete: function () {
+                        $("#loading").fadeOut();
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(window).on('load', function () {
+            // initialization of sticky blocks
+            $.HSCore.components.HSStickyBlock.init('.js-sticky-block');
+        });
+    </script>
+}
