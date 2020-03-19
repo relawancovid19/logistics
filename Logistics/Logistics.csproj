@@ -5625,6 +5625,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_LayoutOrganizations.cshtml" />
     <Content Include="Views\Administrators\AddOrganization.cshtml" />
+    <Content Include="Views\Administrators\Organizations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
