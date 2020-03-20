@@ -140,12 +140,14 @@
                                                 <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
                                                     <i class="fa fa-building-o"></i>
                                                 </span>
-                                                @Html.DropDownList("Province", (IEnumerable<SelectListItem>)ViewBag.Provinces, "Pilih Domisili", new
-                                           {
-                                               @class = "form-control border-right-0 border-top-0 border-left-0",
-                                               id = "Province",
-                                               style = "width:100%"
-                                           })
+                                                <div id="inputGroup1_2" class="form-control g-brd-gray-light-v4 h-100 g-font-size-default g-theme-color-gray-dark-v2 g-placeholder-inherit g-bg-white g-bg-white--focus g-brd-white g-brd-gray-light-v3--hover g-brd-gray-light-v3--focus g-rounded-1 g-py-9 g-px-12 g-transition-0_2 g-transition--ease-in">
+                                                    @Html.DropDownList("Province", (IEnumerable<SelectListItem>)ViewBag.Provinces, "Pilih Domisili", new
+                                                    {
+                                                        @class = "form-control border-right-0 border-top-0 border-left-0",
+                                                        id = "Province",
+                                                        style = "width:100%"
+                                                    })
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -153,12 +155,10 @@
 
                                 <div class="g-mb-25">
                                     
-
-                                    
                                 </div>
 
                                 <div class="mb-4">
-                                    <button class="btn btn-md btn-block u-btn-primary g-py-12 g-font-size-16" type="button">Daftar</button>
+                                    <button class="btn btn-md btn-block u-btn-primary g-py-12 g-font-size-16" type="submit">Daftar</button>
                                 </div>
                                 <div class="row justify-content-between">
                                     <div class="col align-self-center text-right">

@@ -101,8 +101,31 @@ namespace Logistics.Controllers
         }
         public async Task<ActionResult> DetailOrder(string id)
         {
-            var order = await db.Orders.Include("Items").Where(x => x.Id == id).ToListAsync();
+            var order = await db.Orders.Include("Items").Include("User").Include("Province").Where(x => x.Id == id).SingleOrDefaultAsync();
+            ViewBag.Items = await db.Orders.Include("Items").Where(x => x.Id == id).ToListAsync();
             return View(order);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DetailOrder(ViewModels.UpdateTransaction data)
+        {
+            var volunteer = await db.Orders.Include("User").Where(x => x.Id == data.Id).SingleOrDefaultAsync();
+            if (volunteer != null)
+            {
+                volunteer.Status = data.Status;
+                db.Entry(volunteer).State = EntityState.Modified;
+                var result = await db.SaveChangesAsync();
+                if (result > 0)
+                {
+                    if (data.Status == Models.OrderStatus.Approved)
+                    {
+                        //await SendProgramRegistrationEmail(volunteer.Job, volunteer.Volunteer);
+                        return RedirectToAction("DetailOrder", new { id = data.Id });
+                    }
+                   
+                }
+            }
+            return View("Error");
         }
     }
 }

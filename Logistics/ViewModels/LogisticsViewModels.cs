@@ -54,4 +54,11 @@ namespace Logistics.ViewModels
         public string DeliveryAddress { get; set; }
         public string Province { get; set; }
     }
+
+    public class UpdateTransaction
+    {
+        public string Id { get; set; }
+        public OrderStatus Status { get; set; }
+
+    }
 }
