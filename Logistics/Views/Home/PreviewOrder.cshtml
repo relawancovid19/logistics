@@ -7,7 +7,7 @@
         <!-- Products Block -->
         <div class="row">
             <div class="col-lg-8 g-mb-50 g-mb-0--lg">
-                <div class="g-overflow-x-scroll g-overflow-x-visible--lg">
+                <div class="g-overflow-x-scroll g-overflow-x-visible--lg d-none d-lg-block">
                     <table class="text-center g-width-900 g-width-100x--lg g-color-gray-dark-v4">
                         <thead class="g-color-gray-dark-v5 g-font-weight-700 g-font-size-16 text-uppercase">
                             <tr>
@@ -85,6 +85,65 @@
 
                         </tbody>
                     </table>
+                </div>
+                <div class="d-lg-none d-xl-none d-md-block">
+                    <div class="row">
+                        @foreach (var item in ViewBag.Items)
+                        {
+                            <div class="col-md-6 col-lg-6 g-mb-30">
+                                <article class="u-shadow-v1-7 g-bg-white g-rounded-bottom-4">
+                                    <figure>
+                                        <img class="w-100" src="@item.Images" alt="Image Description">
+                                    </figure>
+                                    <div class="g-pa-10">
+                                        <h3 class="g-font-size-25 g-mb-10 g-font-weight-600">
+                                            <a class="g-color-main g-color-primary--hover g-text-underline--none--hover" href="#">@item.Name</a>
+                                        </h3>
+                                        <ul class="list-unstyled info-v5-3__info-list g-font-weight-600 g-color-black g-color-white--parent-hover g-font-size-14 text-uppercase g-mb-0">
+                                            <li class="g-mb-20">
+                                                <i class="g-color-primary g-color-white--parent-hover g-font-size-18 g-mr-10 fa fa-truck"></i>
+                                                @item.Amount @item.Unit.ToString() barang Tersedia
+                                            </li>
+                                        </ul>
+                                        @using (Html.BeginForm("AddItem", "Home", FormMethod.Post))
+                                        {
+                                            if (ViewBag.Status != "Pending")
+                                            {
+                                                <div class="d-inline-block">
+                                                    <div class="js-quantity input-group u-quantity-v1 g-width-150 g-height-45 g-brd-gray-light-v4 g-brd-primary--focus">
+                                                        <div class="js-minus input-group-addon d-flex g-font-size-15 g-width-45 g-color-gray-dark-v4 g-bg-gray-light-v4 g-brd-gray-light-v4 g-rounded-0">
+                                                            −
+                                                        </div>
+                                                        <input type="hidden" name="Id" value="@item.Id" />
+                                                        <input type="hidden" name="IdOrder" value="@ViewBag.Id" />
+                                                        <input class="js-result form-control text-center rounded-0 g-pa-15 g-brd-gray-light-v4" name="Amount" value="0" readonly="" type="text">
+                                                        <div class="js-plus input-group-addon d-flex g-font-size-15 g-width-45 g-color-gray-dark-v4 g-bg-gray-light-v4 g-brd-gray-light-v4 g-rounded-0">
+                                                            +
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr class="g-brd-gray-light-v3 g-mt-15 g-mb-15">
+
+                                                <!-- Article Images -->
+                                                <!-- End Article Images -->
+
+                                                <footer class="d-flex justify-content-between align-items-center ml-auto">
+                                                    <!-- Figure Comments -->
+                                                    <button type="submit" class="ml-auto btn btn-info">Simpan</button>
+                                                    <!-- End Figure Button -->
+                                                </footer>
+                                            }
+                                        }
+
+
+                                    </div>
+                                    <!-- End Article Content -->
+                                </article>
+                                <!-- End Article -->
+                            </div>
+                        }
+                    </div>
+                   
                 </div>
                 <div id="stickyblock-end"></div>
             </div>

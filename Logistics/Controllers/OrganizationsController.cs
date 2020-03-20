@@ -117,12 +117,13 @@ namespace Logistics.Controllers
                 var result = await db.SaveChangesAsync();
                 if (result > 0)
                 {
-                    if (data.Status == Models.OrderStatus.Approved)
-                    {
-                        //await SendProgramRegistrationEmail(volunteer.Job, volunteer.Volunteer);
-                        return RedirectToAction("DetailOrder", new { id = data.Id });
-                    }
-                   
+                    //if (data.Status == Models.OrderStatus.Approved)
+                    //{
+                    //    await SendProgramRegistrationEmail(volunteer.Job, volunteer.Volunteer);
+
+                    //}
+                    return RedirectToAction("DetailOrder", new { id = data.Id });
+
                 }
             }
             return View("Error");

@@ -136,8 +136,10 @@ namespace Logistics.ViewModels
         [Display(Name = "Confirm password")]
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Kata sandi harus sama.")]
         public string ConfirmPassword { get; set; }
+        [Required(ErrorMessage = "Institusi wajib diisi")]
         public string Institution { get; set; }
         public string Province { get; set; }
+        [Required(ErrorMessage = "Jabatan wajib diisi")]
         public string Title { get; set; }
     }
 }
