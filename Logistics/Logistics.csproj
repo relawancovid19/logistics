@@ -5641,6 +5641,7 @@
     <Content Include="Views\Home\PreviewOrder.cshtml" />
     <Content Include="Views\Shared\_LayoutAccount.cshtml" />
     <Content Include="Views\Organizations\DetailOrder.cshtml" />
+    <Content Include="Views\Home\TrackingOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

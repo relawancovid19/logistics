@@ -80,7 +80,19 @@
                         <a href="/home" class="navbar-brand u-header__logo">
                             <img class="u-header__logo-img40 u-header__logo-img--main d-block g-height-40" src="~/assets/images/logo/logo-relawan-covid19.png" alt="Logo">
                         </a>
-                        
+                        <div class="collapse navbar-collapse align-items-center flex-sm-row" id="navBar">
+                            <ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-12 g-pt-20 g-pt-0--lg ml-auto">
+                                <li class="nav-item g-mr-8--lg g-mb-7 g-mb-0--lg active">
+                                    <a href="@Url.Action("Login", "Account")" style="color: #f5e419" class="nav-link p-0">Order<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
+                                    <a href="@Url.Action("Login", "Account")" class="nav-link p-0">Tracking Order</a>
+                                </li>
+                                <li class="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
+                                    <a href="@Url.Action("Register", "Account")" class="nav-link p-0">Login</a>
+                                </li>
+                            </ul>
+                        </div>
                         <button class="navbar-toggler btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-15 g-right-0" type="button"
                                 aria-label="Toggle navigation"
                                 aria-expanded="false"

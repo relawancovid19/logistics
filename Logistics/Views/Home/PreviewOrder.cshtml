@@ -1,4 +1,4 @@
-﻿<section class="g-py-80">
+﻿<section class="g-py-10">
     <div class="container">
         <div class="text-uppercase u-heading-v2-4--bottom g-brd-primary g-mb-30">
             <h2 class="u-heading-v2__title g-line-height-1 g-letter-spacing-2 g-font-weight-700 g-font-size-30 g-font-size-40--md g-color-black mb-0">Pilih Jumlah Barang</h2>
@@ -13,8 +13,12 @@
                             <tr>
                                 <th class="g-pb-20">Nama Barang</th>
                                 <th class="g-pb-20">Stok</th>
-                                <th class="g-width-250 g-pb-20">Jumlah</th>
-                                <th class="g-width-130 g-pb-20">Aksi</th>
+                                @if (ViewBag.Status != "Pending")
+                                {
+                                    <th class="g-width-250 g-pb-20">Jumlah</th>
+                                    <th class="g-width-130 g-pb-20">Aksi</th>
+                                }
+
                             </tr>
                         </thead>
 
@@ -53,6 +57,9 @@
                                             </div>
                                         </div>
                                     </td>*@
+                                    
+                                    if (ViewBag.Status != "Pending")
+                                    {
                                     <td>
                                         <div class="d-inline-block">
                                             <div class="js-quantity input-group u-quantity-v1 g-width-150 g-height-45 g-brd-gray-light-v4 g-brd-primary--focus">
@@ -68,7 +75,9 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="g-color-black g-font-weight-600"><button type="submit" class="btn btn-info">simpan</button> </td>
+                                        <td class="g-color-black g-font-weight-600"><button type="submit" class="btn btn-info">simpan</button> </td>
+                                    }
+                                    
                                 }
 
                             </tr>
@@ -122,13 +131,22 @@
                             @if (ViewBag.Status == "Pending")
                             {
                                 <div class="g-brd-primary--focus text-center g-mb-15">
-                                    <div class="g-bg-primary g-color-white g-font-size-16">Menunggu Persetujuan</div>
-                                    <div class="form-control g-color-gray-dark-v4 g-brd-primary g-font-size-14 rounded-0">
+                                    <div class="g-bg-blue g-color-white g-font-size-16">Nomor Pemesanan</div>
+                                    <div class="form-control g-color-gray-dark-v4 g-brd-blue g-font-size-14 rounded-0">
                                         <div class="text-center g-font-size-14 g-color-gray-dark-v5">
-                                            Permintaan barang yang kamu ajukan menunggu persetujuan Admin, terima kasih
+                                            <b> @ViewBag.Id </b>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="g-brd-primary--focus text-center g-mb-15">
+                                    <div class="g-bg-primary g-color-white g-font-size-16">Menunggu Persetujuan</div>
+                                    <div class="form-control g-color-gray-dark-v4 g-brd-primary g-font-size-14 rounded-0">
+                                        <div class="text-center g-font-size-14 g-color-gray-dark-v5">
+                                            Permintaan barang yang kamu ajukan menunggu persetujuan Admin, terima kasih & simpan Nomor pesanan untuk melihat detail pemesanan
+                                        </div>
+                                    </div>
+                                </div>
+
                             }
                             else if (ViewBag.Status == "Approved")
                             {

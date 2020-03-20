@@ -9,13 +9,13 @@
             <div class="row">
                 <div class="g-pt-55 col-lg-5 align-self-center g-mb-0--lg">
                     <div class="g-bg-white g-rounded-5 g-pa-30">
-                        <h3 class="h6 g-color-black g-font-weight-600 text-uppercase text-center g-mb-25">formulir permintaan barang</h3>
+                        <h3 class="h6 g-color-black g-font-weight-600 text-uppercase text-center g-mb-25">sesuaikan dengan permintaan kamu</h3>
 
                         <!-- Promo Block - Form -->
                         @using (Html.BeginForm("CreateOrder", "Home", FormMethod.Post, new { @class = "form-horizontal form-material", role = "form" }))
                         {
                             @Html.AntiForgeryToken()
-                            <div class="form-group">
+                            @*<div class="form-group">
                                 <div class="col-xs-12">
                                     @Html.TextBoxFor(m => m.FullName, new { @class = "form-control g-px-10 g-py-12", placeholder = "Nama Lengkap", required = "required" })
                                 </div>
@@ -34,22 +34,22 @@
                                 <div class="col-xs-12">
                                     @Html.TextBoxFor(m => m.Institution, new { @class = "form-control g-px-10 g-py-12", placeholder = "Institusi", required = "required" })
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="form-group">
 
                                 <div class="col-xs-12">
-                                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control g-px-10 g-py-12", placeholder = "Jabatan", required = "required" })
+                                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control g-px-10 g-py-12", placeholder = "Judul Permintaan", required = "required" })
                                 </div>
                             </div>
-                            @*<div class="form-group">
+                            <div class="form-group">
 
                                 <div class="col-xs-12">
                                     @Html.TextAreaFor(m => m.Descriptions, new { @class = "form-control g-px-10 g-py-12", placeholder = "Jelaskan lebih detail permintaan Anda", required = "required" })
                                     @Html.ValidationMessageFor(m => m.Descriptions, "", new { @class = "text-danger" })
                                 </div>
-                            </div>*@
+                            </div>
 
-                            @*<div class="form-group">
+                            <div class="form-group">
 
                                 <div class="col-xs-12">
                                     @Html.EnumDropDownListFor(m => m.Priority, new { @class = "form-control ", placeholder = "Prioritas", required = "required" })
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            @*<div class="form-group">
                                 <div class="col-xs-12">
                                     @Html.DropDownList("Province", (IEnumerable<SelectListItem>)ViewBag.Provinces, "Pilih Provinsi", new
                                     {
@@ -68,17 +68,17 @@
                                     })
                                     @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="form-group">
 
                                 <div class="col-xs-12">
                                     @Html.TextAreaFor(m => m.DeliveryAddress, new { @class = "form-control g-px-10 g-py-12", placeholder = "Alamat Pengiriman", required = "required" })
                                     @Html.ValidationMessageFor(m => m.DeliveryAddress, "", new { @class = "text-danger" })
                                 </div>
-                            </div>*@
+                            </div>
                             <div class="form-group text-center m-t-20">
                                 <div class="col-xs-12">
-                                    <button id="register" type="submit" class="btn u-btn-primary btn-lg btn-block text-uppercase waves-effect waves-light"> Daftar</button>
+                                    <button id="register" type="submit" class="btn u-btn-primary btn-lg btn-block text-uppercase waves-effect waves-light">Pesan</button>
                                 </div>
                             </div>
                             <div class="d-none d-sm-block d-md-none">
