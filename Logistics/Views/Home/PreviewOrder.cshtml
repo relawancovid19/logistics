@@ -38,7 +38,7 @@
 
                                 @using (Html.BeginForm("AddItem", "Home", FormMethod.Post))
                                 {
-                                    <td>
+                                    @*<td>
                                         <div class="d-inline-block">
                                             <div class="js-quantity input-group u-quantity-v1 g-width-150 g-height-45 g-brd-gray-light-v4 g-brd-primary--focus">
                                                 <div class="js-minus input-group-prepend g-font-size-15 g-width-45 g-color-gray-dark-v4 g-bg-gray-light-v4 g-rounded-0">
@@ -49,6 +49,21 @@
                                                 <input class="js-result form-control text-center rounded-0 g-pa-15 g-brd-gray-light-v4" name="Amount" value="0" readonly="" type="text">
                                                 <div class="js-plus input-group-append g-font-size-15 g-width-45 g-color-gray-dark-v4 g-bg-gray-light-v4 g-rounded-0">
                                                     <span class="input-group-text justify-content-center rounded-0 w-100 border-0">+</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>*@
+                                    <td>
+                                        <div class="d-inline-block">
+                                            <div class="js-quantity input-group u-quantity-v1 g-width-150 g-height-45 g-brd-gray-light-v4 g-brd-primary--focus">
+                                                <div class="js-minus input-group-addon d-flex g-font-size-15 g-width-45 g-color-gray-dark-v4 g-bg-gray-light-v4 g-brd-gray-light-v4 g-rounded-0">
+                                                    −
+                                                </div>
+                                                <input type="hidden" name="Id" value="@item.Id" />
+                                                <input type="hidden" name="IdOrder" value="@ViewBag.Id" />
+                                                <input class="js-result form-control text-center rounded-0 g-pa-15 g-brd-gray-light-v4" name="Amount" value="0" readonly="" type="text">
+                                                <div class="js-plus input-group-addon d-flex g-font-size-15 g-width-45 g-color-gray-dark-v4 g-bg-gray-light-v4 g-brd-gray-light-v4 g-rounded-0">
+                                                    +
                                                 </div>
                                             </div>
                                         </div>
@@ -110,7 +125,7 @@
                                     <div class="g-bg-primary g-color-white g-font-size-16">Menunggu Persetujuan</div>
                                     <div class="form-control g-color-gray-dark-v4 g-brd-primary g-font-size-14 rounded-0">
                                         <div class="text-center g-font-size-14 g-color-gray-dark-v5">
-                                            Menunggu Persetujuan
+                                            Permintaan barang yang kamu ajukan menunggu persetujuan Admin, terima kasih
                                         </div>
                                     </div>
                                 </div>
@@ -118,10 +133,10 @@
                             else if (ViewBag.Status == "Approved")
                             {
                                 <div class="g-brd-primary--focus text-center g-mb-15">
-                                    <div class="g-bg-primary g-color-primary g-font-size-16">Kamu Relawan</div>
+                                    <div class="g-bg-primary g-color-primary g-font-size-16">Telah Disetujui</div>
                                     <div class="form-control g-color-gray-dark-v4 g-brd-primary g-font-size-14 rounded-0">
                                         <div class="text-center g-font-size-14 g-color-gray-dark-v5">
-                                            Terimakasih permintaan anda sudah di setujui
+                                            Permintaan barang yang kamu ajukan telah disetujui oleh Admin, mohon untuk menunggu pengiriman barang
                                         </div>
                                     </div>
                                 </div>
@@ -132,7 +147,7 @@
                                     <div class="g-bg-primary g-color-white g-font-size-16">Halo</div>
                                     <div class="form-control g-color-gray-dark-v4 g-brd-primary g-font-size-14 rounded-0">
                                         <div class="text-center g-font-size-14 g-color-gray-dark-v5">
-                                            Mohon maaf kriteria kamu kurang cocok untuk pekerjaan ini mungkin coba lagi nanti
+                                            Mohon maaf permintaan barang yang kamu ajukan tidak bisa kami kirim
                                         </div>
                                     </div>
                                 </div>

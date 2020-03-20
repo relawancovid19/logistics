@@ -82,263 +82,52 @@
 
         <div class="g-mx-minus-15">
             <div id="js-carousel-7" class="js-carousel" data-arrows-classes="u-arrow-v1 g-absolute-centered--y g-width-35 g-height-35 g-font-size-default g-color-white g-bg-primary g-color-white--hover g-bg-primary--hover rounded" data-arrow-left-classes="fa fa-angle-left g-left-minus-10" data-arrow-right-classes="fa fa-angle-right g-right-minus-10" data-slides-show="5">
-                <div class="js-slide g-px-20">
-                    <!-- Article -->
-                    <article class="u-shadow-v1-7 g-bg-white g-rounded-bottom-4">
-                        <!-- Figure Image -->
-                        <figure>
-                            <img class="w-100" src="~/assets/images/sample.png" alt="Image Description">
-                        </figure>
-                        <!-- End Figure Image -->
-                        <!-- Article Content -->
-                        <div class="g-pa-10">
-                            <h3 class="g-font-size-14 g-mb-10 g-font-weight-600">
-                                <a class="g-color-gray-dark-v2 g-color-primary--hover g-text-underline--none--hover" href="#">Masker Penyaring Udara</a>
-                            </h3>
+                @foreach (var item in ViewBag.Items)
+                {
+                    <div class="js-slide g-px-20">
+                        <!-- Article -->
+                        <article class="u-shadow-v1-7 g-bg-white g-rounded-bottom-4">
+                            <!-- Figure Image -->
+                            <figure>
+                                <img class="w-100" src="@item.Images" alt="Image Description">
+                            </figure>
+                            <!-- End Figure Image -->
+                            <!-- Article Content -->
+                            <div class="g-pa-10">
+                                <h3 class="g-font-size-14 g-mb-10 g-font-weight-600">
+                                    <a class="g-color-gray-dark-v2 g-color-primary--hover g-text-underline--none--hover" href="#">@item.Name</a>
+                                </h3>
 
-                            <ul class="list-unstyled info-v5-3__info-list g-font-weight-700 g-color-black g-color-white--parent-hover g-font-size-12 text-uppercase g-mb-0">
-                                <li class="g-mb-20">
-                                    <i class="g-color-primary g-color-white--parent-hover g-mr-2 fa fa-truck"></i>
-                                    <small class="g-font-size-10">20 Box barang Tersedia</small>
-                                </li>
-                            </ul>
+                                <ul class="list-unstyled info-v5-3__info-list g-font-weight-700 g-color-black g-color-white--parent-hover g-font-size-12 text-uppercase g-mb-0">
+                                    <li class="g-mb-20">
+                                        <i class="g-color-primary g-color-white--parent-hover g-mr-2 fa fa-truck"></i>
+                                        <small class="g-font-size-10">@item.Amount @item.Unit.ToString() barang Tersedia</small>
+                                    </li>
+                                </ul>
 
-                            <hr class="g-brd-gray-light-v4 g-mt-15 g-mb-15">
+                                <hr class="g-brd-gray-light-v4 g-mt-15 g-mb-15">
 
-                            <!-- Article Images -->
-                            <!-- End Article Images -->
+                                <!-- Article Images -->
+                                <!-- End Article Images -->
 
-                            <footer class="d-flex justify-content-between align-items-center">
-                                <!-- Figure Comments -->
-                                <div class="media g-font-size-11">
-                                    <img class="d-flex mr-3 rounded-circle g-width-25 g-height-25" src="~/assets/admin/images/users/1.jpg" alt="Image Description">
-                                    <div class="media-body align-self-center text-uppercase">
-                                        <span class="u-link-v5 g-color-main g-color-primary--hover">Pemerintah Provinsi Jawa Barat</span>
+                                <footer class="d-flex justify-content-between align-items-center">
+                                    <!-- Figure Comments -->
+                                    <div class="media g-font-size-11">
+                                        <img class="d-flex mr-3 rounded-circle g-width-25 g-height-25" src="https://volunteer.blob.core.windows.net/images/banner/18972876-c9ec-4594-a226-ccb69c9734cf/logo-provinsi-jawa-barat.jpg" alt="Image Description">
+                                        <div class="media-body align-self-center text-uppercase">
+                                            <span class="u-link-v5 g-color-main g-color-primary--hover">Pemerintah Provinsi Jawa Barat</span>
+                                        </div>
+
                                     </div>
+                                    <!-- End Figure Button -->
+                                </footer>
+                            </div>
+                            <!-- End Article Content -->
+                        </article>
+                        <!-- End Article -->
+                    </div>
+                }
 
-                                </div>
-                                <!-- End Figure Button -->
-                            </footer>
-                        </div>
-                        <!-- End Article Content -->
-                    </article>
-                    <!-- End Article -->
-                </div>
-
-                <div class="js-slide g-px-20">
-                    <!-- Article -->
-                    <article class="u-shadow-v1-7 g-bg-white g-rounded-bottom-4">
-                        <!-- Figure Image -->
-                        <figure>
-                            <img class="w-100" src="~/assets/images/sample.png" alt="Image Description">
-                        </figure>
-                        <!-- End Figure Image -->
-                        <!-- Article Content -->
-                        <div class="g-pa-10">
-                            <h3 class="g-font-size-14 g-mb-10 g-font-weight-600">
-                                <a class="g-color-gray-dark-v2 g-color-primary--hover g-text-underline--none--hover" href="#">Masker Penyaring Udara</a>
-                            </h3>
-
-                            <ul class="list-unstyled info-v5-3__info-list g-font-weight-700 g-color-black g-color-white--parent-hover g-font-size-12 text-uppercase g-mb-0">
-                                <li class="g-mb-20">
-                                    <i class="g-color-primary g-color-white--parent-hover g-mr-2 fa fa-truck"></i>
-                                    <small class="g-font-size-10">20 Box barang Tersedia</small>
-                                </li>
-                            </ul>
-
-                            <hr class="g-brd-gray-light-v4 g-mt-15 g-mb-15">
-
-                            <!-- Article Images -->
-                            <!-- End Article Images -->
-
-                            <footer class="d-flex justify-content-between align-items-center">
-                                <!-- Figure Comments -->
-                                <div class="media g-font-size-11">
-                                    <img class="d-flex mr-3 rounded-circle g-width-25 g-height-25" src="~/assets/admin/images/users/1.jpg" alt="Image Description">
-                                    <div class="media-body align-self-center text-uppercase">
-                                        <span class="u-link-v5 g-color-main g-color-primary--hover">Pemerintah Provinsi Jawa Barat</span>
-                                    </div>
-
-                                </div>
-                                <!-- End Figure Button -->
-                            </footer>
-                        </div>
-                        <!-- End Article Content -->
-                    </article>
-                    <!-- End Article -->
-                </div>
-
-                <div class="js-slide g-px-20">
-                    <!-- Article -->
-                    <article class="u-shadow-v1-7 g-bg-white g-rounded-bottom-4">
-                        <!-- Figure Image -->
-                        <figure>
-                            <img class="w-100" src="~/assets/images/sample.png" alt="Image Description">
-                        </figure>
-                        <!-- End Figure Image -->
-                        <!-- Article Content -->
-                        <div class="g-pa-10">
-                            <h3 class="g-font-size-14 g-mb-10 g-font-weight-600">
-                                <a class="g-color-gray-dark-v2 g-color-primary--hover g-text-underline--none--hover" href="#">Masker Penyaring Udara</a>
-                            </h3>
-
-                            <ul class="list-unstyled info-v5-3__info-list g-font-weight-700 g-color-black g-color-white--parent-hover g-font-size-12 text-uppercase g-mb-0">
-                                <li class="g-mb-20">
-                                    <i class="g-color-primary g-color-white--parent-hover g-mr-2 fa fa-truck"></i>
-                                    <small class="g-font-size-10">20 Box barang Tersedia</small>
-                                </li>
-                            </ul>
-
-                            <hr class="g-brd-gray-light-v4 g-mt-15 g-mb-15">
-
-                            <!-- Article Images -->
-                            <!-- End Article Images -->
-
-                            <footer class="d-flex justify-content-between align-items-center">
-                                <!-- Figure Comments -->
-                                <div class="media g-font-size-11">
-                                    <img class="d-flex mr-3 rounded-circle g-width-25 g-height-25" src="~/assets/admin/images/users/1.jpg" alt="Image Description">
-                                    <div class="media-body align-self-center text-uppercase">
-                                        <span class="u-link-v5 g-color-main g-color-primary--hover">Pemerintah Provinsi Jawa Barat</span>
-                                    </div>
-
-                                </div>
-                                <!-- End Figure Button -->
-                            </footer>
-                        </div>
-                        <!-- End Article Content -->
-                    </article>
-                    <!-- End Article -->
-                </div>
-
-                <div class="js-slide g-px-20">
-                    <!-- Article -->
-                    <article class="u-shadow-v1-7 g-bg-white g-rounded-bottom-4">
-                        <!-- Figure Image -->
-                        <figure>
-                            <img class="w-100" src="~/assets/images/sample.png" alt="Image Description">
-                        </figure>
-                        <!-- End Figure Image -->
-                        <!-- Article Content -->
-                        <div class="g-pa-10">
-                            <h3 class="g-font-size-14 g-mb-10 g-font-weight-600">
-                                <a class="g-color-gray-dark-v2 g-color-primary--hover g-text-underline--none--hover" href="#">Masker Penyaring Udara</a>
-                            </h3>
-
-                            <ul class="list-unstyled info-v5-3__info-list g-font-weight-700 g-color-black g-color-white--parent-hover g-font-size-12 text-uppercase g-mb-0">
-                                <li class="g-mb-20">
-                                    <i class="g-color-primary g-color-white--parent-hover g-mr-2 fa fa-truck"></i>
-                                    <small class="g-font-size-10">20 Box barang Tersedia</small>
-                                </li>
-                            </ul>
-
-                            <hr class="g-brd-gray-light-v4 g-mt-15 g-mb-15">
-
-                            <!-- Article Images -->
-                            <!-- End Article Images -->
-
-                            <footer class="d-flex justify-content-between align-items-center">
-                                <!-- Figure Comments -->
-                                <div class="media g-font-size-11">
-                                    <img class="d-flex mr-3 rounded-circle g-width-25 g-height-25" src="~/assets/admin/images/users/1.jpg" alt="Image Description">
-                                    <div class="media-body align-self-center text-uppercase">
-                                        <span class="u-link-v5 g-color-main g-color-primary--hover">Pemerintah Provinsi Jawa Barat</span>
-                                    </div>
-
-                                </div>
-                                <!-- End Figure Button -->
-                            </footer>
-                        </div>
-                        <!-- End Article Content -->
-                    </article>
-                    <!-- End Article -->
-                </div>
-
-                <div class="js-slide g-px-20">
-                    <!-- Article -->
-                    <article class="u-shadow-v1-7 g-bg-white g-rounded-bottom-4">
-                        <!-- Figure Image -->
-                        <figure>
-                            <img class="w-100" src="~/assets/images/sample.png" alt="Image Description">
-                        </figure>
-                        <!-- End Figure Image -->
-                        <!-- Article Content -->
-                        <div class="g-pa-10">
-                            <h3 class="g-font-size-14 g-mb-10 g-font-weight-600">
-                                <a class="g-color-gray-dark-v2 g-color-primary--hover g-text-underline--none--hover" href="#">Masker Penyaring Udara</a>
-                            </h3>
-
-                            <ul class="list-unstyled info-v5-3__info-list g-font-weight-700 g-color-black g-color-white--parent-hover g-font-size-12 text-uppercase g-mb-0">
-                                <li class="g-mb-20">
-                                    <i class="g-color-primary g-color-white--parent-hover g-mr-2 fa fa-truck"></i>
-                                    <small class="g-font-size-10">20 Box barang Tersedia</small>
-                                </li>
-                            </ul>
-
-                            <hr class="g-brd-gray-light-v4 g-mt-15 g-mb-15">
-
-                            <!-- Article Images -->
-                            <!-- End Article Images -->
-
-                            <footer class="d-flex justify-content-between align-items-center">
-                                <!-- Figure Comments -->
-                                <div class="media g-font-size-11">
-                                    <img class="d-flex mr-3 rounded-circle g-width-25 g-height-25" src="~/assets/admin/images/users/1.jpg" alt="Image Description">
-                                    <div class="media-body align-self-center text-uppercase">
-                                        <span class="u-link-v5 g-color-main g-color-primary--hover">Pemerintah Provinsi Jawa Barat</span>
-                                    </div>
-
-                                </div>
-                                <!-- End Figure Button -->
-                            </footer>
-                        </div>
-                        <!-- End Article Content -->
-                    </article>
-                    <!-- End Article -->
-                </div>
-
-                <div class="js-slide g-px-20">
-                    <!-- Article -->
-                    <article class="u-shadow-v1-7 g-bg-white g-rounded-bottom-4">
-                        <!-- Figure Image -->
-                        <figure>
-                            <img class="w-100" src="~/assets/images/sample.png" alt="Image Description">
-                        </figure>
-                        <!-- End Figure Image -->
-                        <!-- Article Content -->
-                        <div class="g-pa-10">
-                            <h3 class="g-font-size-14 g-mb-10 g-font-weight-600">
-                                <a class="g-color-gray-dark-v2 g-color-primary--hover g-text-underline--none--hover" href="#">Masker Penyaring Udara</a>
-                            </h3>
-
-                            <ul class="list-unstyled info-v5-3__info-list g-font-weight-700 g-color-black g-color-white--parent-hover g-font-size-12 text-uppercase g-mb-0">
-                                <li class="g-mb-20">
-                                    <i class="g-color-primary g-color-white--parent-hover g-mr-2 fa fa-truck"></i>
-                                    <small class="g-font-size-10">20 Box barang Tersedia</small>
-                                </li>
-                            </ul>
-
-                            <hr class="g-brd-gray-light-v4 g-mt-15 g-mb-15">
-
-                            <!-- Article Images -->
-                            <!-- End Article Images -->
-
-                            <footer class="d-flex justify-content-between align-items-center">
-                                <!-- Figure Comments -->
-                                <div class="media g-font-size-11">
-                                    <img class="d-flex mr-3 rounded-circle g-width-25 g-height-25" src="~/assets/admin/images/users/1.jpg" alt="Image Description">
-                                    <div class="media-body align-self-center text-uppercase">
-                                        <span class="u-link-v5 g-color-main g-color-primary--hover">Pemerintah Provinsi Jawa Barat</span>
-                                    </div>
-
-                                </div>
-                                <!-- End Figure Button -->
-                            </footer>
-                        </div>
-                        <!-- End Article Content -->
-                    </article>
-                    <!-- End Article -->
-                </div>
             </div>
         </div>
 

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Logistics.Controllers
 {
+    [Authorize]
     public class HomeController : BaseController
     {
         public async Task<ActionResult> Index()

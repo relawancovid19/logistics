@@ -19,9 +19,11 @@ namespace Logistics.Controllers
     {
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public async Task<ActionResult> Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            var items = await db.Items.ToListAsync();
+            ViewBag.Items = items;
             return View();
         }
 
@@ -111,6 +113,7 @@ namespace Logistics.Controllers
                             Selected = false
                         }).ToArrayAsync();
             ViewBag.Provinces = province;
+
             return View();
         }
 
