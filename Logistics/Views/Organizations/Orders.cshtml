@@ -29,33 +29,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    @*<tr>
                         <td>Bukhori Arkan</td>
                         <td>Alat Perlindungan Diri</td>
                         <td>High</td>
                         <td>Jawa Barat</td>
                         <td>Menunggu Persetujuan</td>
                         <td>Detail</td>
-                    </tr>
-                    @*@foreach (var item in Model)
+                    </tr>*@
+                    @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@item.Name</td>
-                            <td>@item.Amount (@item.Unit.ToString())</td>
+                            <td>@item.User.FullName</td>
+                            <td>@item.Title</td>
+                            <td>@item.Priority.ToString()</td>
+                            <td>@item.Province.Name.ToString()</td>
+                            <td>@item.Status</td>
                             <td>
 
-                                <a href="@Url.Action("AddStock", new { id = item.Id })" target="_blank" data-toggle="tooltip" data-original-title="Tambah Stok">
-                                    <i style="margin-left:5px" class="fa fa-plus m-1"></i>
-                                </a>
-                                <a href="@Url.Action("AddImages" ,new { id = item.Id })" target="_blank" data-toggle="tooltip" data-original-title="Tambah Gambar">
-                                    <i class="fa fa-picture-o m-1"></i>
-                                </a>
-                                <a href="@Url.Action("EditItem", new { id = item.Id })" target="_blank" data-toggle="tooltip" data-original-title="Edit">
-                                    <i class="fa fa-edit m-1"></i>
+                                <a href="@Url.Action("DetailOrder", new { id = item.Id })" target="_blank" data-toggle="tooltip" data-original-title="Lihat Detail">
+                                    <i style="margin-left:5px" class="fa fa-file m-1"></i>
                                 </a>
                             </td>
                         </tr>
-                    }*@
+                    }
 
                 </tbody>
             </table>
