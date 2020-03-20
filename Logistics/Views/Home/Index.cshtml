@@ -16,20 +16,40 @@
                         {
                             @Html.AntiForgeryToken()
                             <div class="form-group">
-
                                 <div class="col-xs-12">
-                                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control g-px-10 g-py-12", placeholder = "Judul Permintaan", required = "required" })
+                                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control g-px-10 g-py-12", placeholder = "Nama Lengkap", required = "required" })
                                 </div>
                             </div>
                             <div class="form-group">
+                                <div class="col-xs-12">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control g-px-10 g-py-12", placeholder = "Alamat Email", required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control g-px-10 g-py-12", placeholder = "Nomer Telp", required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    @Html.TextBoxFor(m => m.Institution, new { @class = "form-control g-px-10 g-py-12", placeholder = "Institusi", required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-xs-12">
+                                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control g-px-10 g-py-12", placeholder = "Jabatan", required = "required" })
+                                </div>
+                            </div>
+                            @*<div class="form-group">
 
                                 <div class="col-xs-12">
                                     @Html.TextAreaFor(m => m.Descriptions, new { @class = "form-control g-px-10 g-py-12", placeholder = "Jelaskan lebih detail permintaan Anda", required = "required" })
                                     @Html.ValidationMessageFor(m => m.Descriptions, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
+                            </div>*@
 
-                            <div class="form-group">
+                            @*<div class="form-group">
 
                                 <div class="col-xs-12">
                                     @Html.EnumDropDownListFor(m => m.Priority, new { @class = "form-control ", placeholder = "Prioritas", required = "required" })
@@ -55,7 +75,7 @@
                                     @Html.TextAreaFor(m => m.DeliveryAddress, new { @class = "form-control g-px-10 g-py-12", placeholder = "Alamat Pengiriman", required = "required" })
                                     @Html.ValidationMessageFor(m => m.DeliveryAddress, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="form-group text-center m-t-20">
                                 <div class="col-xs-12">
                                     <button id="register" type="submit" class="btn u-btn-primary btn-lg btn-block text-uppercase waves-effect waves-light"> Daftar</button>

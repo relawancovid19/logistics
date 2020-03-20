@@ -28,7 +28,7 @@ namespace Logistics.Migrations
             if (roleManager.Roles.Count() == 0)
             {
                 roleManager.Create(new IdentityRole { Name = "SA" });
-                roleManager.Create(new IdentityRole { Name = "Volunteer" });
+                roleManager.Create(new IdentityRole { Name = "Requestor" });
                 roleManager.Create(new IdentityRole { Name = "Administrator" });
             };
             var admin = new ApplicationUser
@@ -59,7 +59,7 @@ namespace Logistics.Migrations
             if (manager.FindByName("user@user.com") == null)
             {
                 manager.Create(user, "User@2020");
-                manager.AddToRoles(user.Id, new string[] { "Volunteer" });
+                manager.AddToRoles(user.Id, new string[] { "Requestor" });
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logistics.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Logistics.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : BaseController
     {
         public async Task<ActionResult> Index()
@@ -32,6 +33,9 @@ namespace Logistics.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Register user here 
+                
+                //
                 var province = await db.Provinces.Where(x => x.IdProvince == data.Province).SingleOrDefaultAsync();
                 var user = await db.Users.Where(x => x.UserName == User.Identity.Name).SingleOrDefaultAsync();
                 var newOrder = new Models.Order()

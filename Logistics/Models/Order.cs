@@ -33,9 +33,9 @@ namespace Logistics.Models
     }
     public enum Priority
     {
-        Immediately,
-        High,
-        Low
+        Mendesak,
+        Tinggi,
+        Rendah
     }
     public class OrderItem
     {
