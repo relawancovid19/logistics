@@ -17,8 +17,9 @@ body {
   background-color: #fff; }
 
 a {
-  color: #72c02c;
-  outline: none; }
+    color: #f5e419;
+    outline: none;
+}
 
 a:focus,
 a:hover {

@@ -1,0 +1,330 @@
+﻿<section class="g-py-80">
+    <div class="container">
+        <div class="text-uppercase u-heading-v2-4--bottom g-brd-primary g-mb-30">
+            <h2 class="u-heading-v2__title g-line-height-1 g-letter-spacing-2 g-font-weight-700 g-font-size-30 g-font-size-40--md g-color-black mb-0">Pilih Jumlah Barang</h2>
+        </div>
+
+        <!-- Products Block -->
+        <div class="row">
+            <div class="col-lg-8 g-mb-50 g-mb-0--lg">
+                <div class="g-overflow-x-scroll g-overflow-x-visible--lg">
+                    <table class="text-center g-width-900 g-width-100x--lg g-color-gray-dark-v4">
+                        <thead class="g-color-gray-dark-v5 g-font-weight-700 g-font-size-16 text-uppercase">
+                            <tr>
+                                <th class="g-pb-20">Nama Barang</th>
+                                <th class="g-pb-20">Stok</th>
+                                <th class="g-width-250 g-pb-20">Jumlah</th>
+                                <th class="g-width-130 g-pb-20">Aksi</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in ViewBag.Items)
+                            {
+                            <tr>
+                                <td class="text-left g-pa-15">
+                                    <!-- Table Image -->
+                                    <img class="d-inline-block g-brd-gray-light-v4 g-brd-around g-width-120 g-mr-15" src="@item.Images" alt="Image Description">
+                                    <!-- End Table Image -->
+                                    <!-- Table Info -->
+                                    <div class="d-inline-block align-middle">
+                                        <h4 class="h6 g-color-black g-font-weight-700 text-uppercase">@item.Name</h4>
+                                    </div>
+                                    <!-- End Table Info -->
+                                </td>
+
+                                <td>@item.Amount @item.Unit.ToString()</td>
+
+
+                                @using (Html.BeginForm("AddItem", "Home", FormMethod.Post))
+                                {
+                                    <td>
+                                        <div class="d-inline-block">
+                                            <div class="js-quantity input-group u-quantity-v1 g-width-150 g-height-45 g-brd-gray-light-v4 g-brd-primary--focus">
+                                                <div class="js-minus input-group-prepend g-font-size-15 g-width-45 g-color-gray-dark-v4 g-bg-gray-light-v4 g-rounded-0">
+                                                    <span class="input-group-text justify-content-center rounded-0 w-100 border-0">−</span>
+                                                </div>
+                                                <input type="hidden" name="Id" value="@item.Id" />
+                                                <input type="hidden" name="IdOrder" value="@ViewBag.Id" />
+                                                <input class="js-result form-control text-center rounded-0 g-pa-15 g-brd-gray-light-v4" name="Amount" value="0" readonly="" type="text">
+                                                <div class="js-plus input-group-append g-font-size-15 g-width-45 g-color-gray-dark-v4 g-bg-gray-light-v4 g-rounded-0">
+                                                    <span class="input-group-text justify-content-center rounded-0 w-100 border-0">+</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="g-color-black g-font-weight-600"><button type="submit" class="btn btn-info">simpan</button> </td>
+                                }
+
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div id="stickyblock-end"></div>
+            </div>
+
+            <div class="col-lg-4">
+                <div id="stickyblock-start" class="js-sticky-block g-sticky-block--lg g-pt-20" data-start-point="#stickyblock-start" data-end-point="#stickyblock-end">
+                    <!-- News Feed -->
+                    <div class="g-mb-40">
+
+                        <!-- Article -->
+                        <div class="d-lg-none d-xl-none d-md-block">
+                            <div class="u-heading-v3-1 g-mb-30">
+                                <h2 class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary">Preview Barang</h2>
+                            </div>
+                        </div>
+                        <div class="d-lg-none d-none d-lg-block">
+                            <div class="u-heading-v3-1 g-mb-30 ">
+                                <h2 class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary">Preview Barang</h2>
+                            </div>
+                        </div>
+                        <ul class="list-unstyled">
+                            @foreach (var item in ViewBag.Cart)
+                            {
+                                <li class="d-flex justify-content-start g-brd-around g-brd-gray-light-v4 g-pa-20 g-mb-7">
+                                    <div class="g-pos-rel g-mr-5">
+                                        <span class="u-badge-v2--xs g-bg-green g-brd-around g-brd-white"></span>
+                                        <img class="g-width-50 g-height-50 rounded" src="@item.Item.Images" alt="Image Description">
+                                    </div>
+
+                                    <div class="align-self-center g-px-10">
+                                        <h5 class="h6 g-font-weight-600 g-color-black g-mb-3">
+                                            <span class="g-mr-5">@item.Item.Name</span>
+                                        </h5>
+                                    </div>
+                                    <div class="align-self-center ml-auto">
+                                        <span class="u-label u-label--sm g-bg-blue g-rounded-20 g-px-10">@item.Amount @item.Unit</span>
+                                    </div>
+                                </li>
+                            }
+
+                        </ul>
+                        <form id="registrationFormTop" method="post">
+                            <input type="hidden" name="Id" value="@ViewBag.Id" />
+                            @if (ViewBag.Status == "Pending")
+                            {
+                                <div class="g-brd-primary--focus text-center g-mb-15">
+                                    <div class="g-bg-primary g-color-white g-font-size-16">Menunggu Persetujuan</div>
+                                    <div class="form-control g-color-gray-dark-v4 g-brd-primary g-font-size-14 rounded-0">
+                                        <div class="text-center g-font-size-14 g-color-gray-dark-v5">
+                                            Menunggu Persetujuan
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else if (ViewBag.Status == "Approved")
+                            {
+                                <div class="g-brd-primary--focus text-center g-mb-15">
+                                    <div class="g-bg-primary g-color-primary g-font-size-16">Kamu Relawan</div>
+                                    <div class="form-control g-color-gray-dark-v4 g-brd-primary g-font-size-14 rounded-0">
+                                        <div class="text-center g-font-size-14 g-color-gray-dark-v5">
+                                            Terimakasih permintaan anda sudah di setujui
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else if (ViewBag.Status == "Rejected")
+                            {
+                                <div class="g-brd-primary--focus text-center g-mb-15">
+                                    <div class="g-bg-primary g-color-white g-font-size-16">Halo</div>
+                                    <div class="form-control g-color-gray-dark-v4 g-brd-primary g-font-size-14 rounded-0">
+                                        <div class="text-center g-font-size-14 g-color-gray-dark-v5">
+                                            Mohon maaf kriteria kamu kurang cocok untuk pekerjaan ini mungkin coba lagi nanti
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <button type="submit" role="button" class="btn u-btn-primary btn-lg btn-block g-mr-10 g-mb-15 text-uppercase">Pesan Sekarang</button>
+                            }
+
+                        </form>
+
+                        <!-- End Article -->
+                    </div>
+                </div>
+
+                <!-- End Products Block -->
+            </div>
+        </div>
+</div></section>
+
+<div id="loading" class="preloader">
+    <div class="loader"></div>
+
+</div>
+
+@section styles
+{
+    <link href="~/assets/vendor/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="~/assets/vendor/icon-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/icon-line/css/simple-line-icons.css">
+}
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/assets/js/components/hs.sticky-block.js"></script>
+    <script src="~/assets/vendor/sweetalert/sweetalert.min.js"></script>
+    <script src="~/assets/js/components/hs.tabs.js"></script>
+    <script src="~/assets/js/components/hs.count-qty.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.HSCore.components.HSCountQty.init('.js-quantity');
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#registrationForm").submit(function (e) {
+                e.preventDefault()
+                $('#loading').fadeIn();
+                var data = $(this).serialize();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Apply", "Jobs")',
+                    data: data,
+                    success: function (data) {
+                        $("#loading").fadeOut();
+                        if (data == 'KO') {
+                            swal({
+                                title: "Terjadi Kesalahan",
+                                text: "Mohon maaf, terdapat kesalahan dalam sistem kami, silahkan ulangi lagi",
+                                type: "error",
+                                button: true,
+                            })
+                        }
+                        else if (data == 'OK') {
+                            swal({
+                                title: "Sukses",
+                                text: "Kamu telah mendaftar untuk menjadi relawan , namun status masih menunggu persetujuan dari Admin",
+                                type: "success",
+                                button: true,
+                            })
+                            setTimeout(function () {// wait for 5 secs(2)
+                                location.reload(); // then reload the page.(3)
+                            }, 3000);
+                        }
+                        else if (data == 'NOTLOGIN')
+                        {
+                            swal({
+                                title: "Akun Belum Login",
+                                text: "Silahkan login jika ingin mendaftar menjadi relawan",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                        else if (data == 'REGISTERED') {
+                            swal({
+                                title: "Akun sudah terdaftar",
+                                text: "Sebelumnya kamu sudah pernah melakukan pendaftaran, silahkan login dan jadilah relawan",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                        else if (data == 'EXIST') {
+                            swal({
+                                title: "Akun sudah terdaftar",
+                                text: "Kamu sudah mendaftar pada acara ini",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                        else {
+                            swal({
+                                title: "Sudah Mendaftar",
+                                text: "Kamu telah mendaftar untuk mengikuti acara ini, namun kami masih melakukan validasi pembayaran",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                    },
+                    complete: function () {
+                        $("#loading").fadeOut();
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#registrationFormTop").submit(function (e) {
+                e.preventDefault()
+                $('#loading').fadeIn();
+                var data = $(this).serialize();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SubmitOrder", "Home")',
+                    data: data,
+                    success: function (data) {
+                        $("#loading").fadeOut();
+                        if (data == 'KO') {
+                            swal({
+                                title: "Terjadi Kesalahan",
+                                text: "Mohon maaf, terdapat kesalahan dalam sistem kami, silahkan ulangi lagi",
+                                type: "error",
+                                button: true,
+                            })
+                        }
+                        else if (data == 'OK') {
+                            swal({
+                                title: "Sukses",
+                                text: "Kamu telah meminta bantuan, status kamu saat ini adalah menunggu persetujuan dari admin",
+                                type: "success",
+                                button: true,
+                            })
+                            setTimeout(function () {// wait for 5 secs(2)
+                                location.reload(); // then reload the page.(3)
+                            }, 3000);
+                        }
+                        else if (data == 'NOTLOGIN')
+                        {
+                            swal({
+                                title: "Akun Belum Login",
+                                text: "Silahkan login jika ingin mendaftar menjadi relawan",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                        else if (data == 'REGISTERED') {
+                            swal({
+                                title: "Akun sudah terdaftar",
+                                text: "Sebelumnya kamu sudah pernah melakukan pendaftaran, silahkan login dan lakukan jadilah relawan",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                        else if (data == 'EXIST') {
+                            swal({
+                                title: "Akun sudah terdaftar",
+                                text: "Kamu sudah mendaftar pada acara ini",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                        else {
+                            swal({
+                                title: "Sudah Mendaftar",
+                                text: "Kamu telah mendaftar untuk mengikuti acara ini, namun kami masih melakukan validasi pembayaran",
+                                type: "warning",
+                                button: true,
+                            })
+                        }
+                    },
+                    complete: function () {
+                        $("#loading").fadeOut();
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(window).on('load', function () {
+            // initialization of sticky blocks
+            $.HSCore.components.HSStickyBlock.init('.js-sticky-block');
+        });
+    </script>
+}

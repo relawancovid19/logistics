@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logistics.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -31,6 +32,26 @@ namespace Logistics.ViewModels
         public string WebsiteUrl { get; set; }
         public string Avatar { get; set; }
         public string Address { get; set; }
+        public string Province { get; set; }
+    }
+    public class AddItem
+    {
+        public string IdOrder { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        [System.Web.Mvc.AllowHtml]
+        public string Descriptions { get; set; }
+        public HttpPostedFileBase Banner { get; set; }
+        public HttpPostedFileBase Images { get; set; }
+        public Unit Unit { get; set; }
+        public int Amount { get; set; }
+    }
+    public class Order
+    {
+        public string Title { get; set; }
+        public string Descriptions { get; set; }
+        public Priority Priority { get; set; }
+        public string DeliveryAddress { get; set; }
         public string Province { get; set; }
     }
 }

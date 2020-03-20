@@ -191,6 +191,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -211,6 +212,10 @@
     <Compile Include="Migrations\202003191357369_OrderV3.cs" />
     <Compile Include="Migrations\202003191357369_OrderV3.Designer.cs">
       <DependentUpon>202003191357369_OrderV3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003191906529_Item_v1.cs" />
+    <Compile Include="Migrations\202003191906529_Item_v1.Designer.cs">
+      <DependentUpon>202003191906529_Item_v1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Item.cs" />
@@ -601,6 +606,7 @@
     <Content Include="assets\images\logo\logo-relawan-covid19.png" />
     <Content Include="assets\images\logo\logo_square.jpeg" />
     <Content Include="assets\images\no-image.png" />
+    <Content Include="assets\images\sample.png" />
     <Content Include="assets\images\vector.png" />
     <Content Include="assets\js\blocks\temp.txt" />
     <Content Include="assets\js\components\gmap\hs.map.js" />
@@ -5625,6 +5631,15 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_LayoutOrganizations.cshtml" />
     <Content Include="Views\Administrators\AddOrganization.cshtml" />
+    <Content Include="Views\Administrators\Organizations.cshtml" />
+    <Content Include="Views\Organizations\Items.cshtml" />
+    <Content Include="Views\Organizations\AddItem.cshtml" />
+    <Content Include="Views\Organizations\AddStock.cshtml" />
+    <Content Include="Views\Organizations\EditItem.cshtml" />
+    <Content Include="Views\Organizations\Orders.cshtml" />
+    <Content Include="Views\Home\CreateOrder.cshtml" />
+    <Content Include="Views\Home\PreviewOrder.cshtml" />
+    <Content Include="Views\Organizations\DetailOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -5655,6 +5670,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003191357369_OrderV3.resx">
       <DependentUpon>202003191357369_OrderV3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003191906529_Item_v1.resx">
+      <DependentUpon>202003191906529_Item_v1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

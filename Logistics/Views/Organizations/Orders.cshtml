@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Logistics.Models.Order>
+@{
+    Layout = "~/Views/Shared/_LayoutOrganizations.cshtml";
+}
+
+<div class="row page-titles">
+
+    <div class="col-md-6 col-8 align-self-center">
+        <h3 class="text-themecolor m-b-0 m-t-0">Semua Permintaan</h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">Kelola Permintaan</li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive m-t-40">
+            <table id="myTable" class="table table-bordered table-striped">
+                <thead class="table-header">
+                    <tr class="color-table">
+                        <th>Nama Peminta</th>
+                        <th>Judul Permintaan</th>
+                        <th>Prioritas</th>
+                        <th>Provinsi</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @*<tr>
+                        <td>Bukhori Arkan</td>
+                        <td>Alat Perlindungan Diri</td>
+                        <td>High</td>
+                        <td>Jawa Barat</td>
+                        <td>Menunggu Persetujuan</td>
+                        <td>Detail</td>
+                    </tr>*@
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.User.FullName</td>
+                            <td>@item.Title</td>
+                            <td>@item.Priority.ToString()</td>
+                            <td>@item.Province.Name.ToString()</td>
+                            <td>@item.Status</td>
+                            <td>
+
+                                <a href="@Url.Action("DetailOrder", new { id = item.Id })" target="_blank" data-toggle="tooltip" data-original-title="Lihat Detail">
+                                    <i style="margin-left:5px" class="fa fa-file m-1"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/assets/css/custom.css">
+}
+@section Scripts{
+    <script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+
+        });
+    </script>
+}
+
+

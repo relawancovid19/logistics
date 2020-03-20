@@ -46,6 +46,21 @@ namespace Logistics.Migrations
                 manager.Create(admin, "Volunteer@2020");
                 manager.AddToRoles(admin.Id, new string[] { "Administrator", "SA" });
             }
+            var user = new ApplicationUser
+            {
+                PhoneNumber = "+62818271214",
+                PhoneNumberConfirmed = true,
+                UserName = "user@user.com",
+                Email = "user@user.com",
+                FullName = "Alex Budiyanto",
+                Institution = "ACCI",
+                Title = "CEO"
+            };
+            if (manager.FindByName("user@user.com") == null)
+            {
+                manager.Create(user, "User@2020");
+                manager.AddToRoles(user.Id, new string[] { "Volunteer" });
+            }
         }
     }
 }
