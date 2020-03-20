@@ -1,0 +1,182 @@
+﻿@model Logistics.ViewModels.TrackingOrder
+<section class="g-pos-rel">
+    <div class="js-carousel" data-autoplay="true" data-infinite="true" data-fade="true" data-speed="5000">
+        <div class="js-slide g-min-height-100vh g-flex-centered g-bg-cover g-bg-pos-top-center g-bg-img-hero g-bg-black-opacity-0_3--after" style="background-image: url(/assets/images/backgrounds/banner1.jpg);"></div>
+        <div class="js-slide g-min-height-100vh g-flex-centered g-bg-cover g-bg-pos-top-center g-bg-img-hero g-bg-black-opacity-0_3--after" style="background-image: url(/assets/images/backgrounds/banner2.jpg);"></div>
+    </div>
+    <div class="g-absolute-centered--y g-left-0 g-right-0">
+        <div class="container g-z-index-1">
+            <div class="row">
+                <div class="g-pt-55 col-lg-7 align-self-center g-mb-0--lg">
+                    <div class="g-bg-white g-rounded-5 g-pa-30">
+                        <h3 class="h6 g-color-black g-font-weight-600 text-uppercase text-center g-mb-25">cari pesanan kamu disini</h3>
+
+                        <!-- Promo Block - Form -->
+                        @using (Html.BeginForm("TrackingOrder", "Home", FormMethod.Post, new { @class = "form-horizontal form-material", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-6">
+                                        <div class="input-group g-brd-primary--focus">
+                                            <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
+                                                <i class="fa fa-id-card-o"></i>
+                                            </span>
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control g-color-black g-bg-white g-brd-gray-light-v4 g-py-15 g-px-15", placeholder = "Email Anda" })
+                                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-4">
+                                        <div class="input-group g-brd-primary--focus">
+                                            <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
+                                                <i class="fa fa-cart-plus"></i>
+                                            </span>
+                                            @Html.TextBoxFor(m => m.IdOrder, new { @class = "form-control g-color-black g-bg-white g-brd-gray-light-v4 g-py-15 g-px-15", placeholder = "Nomer Pemesanan" })
+                                            @Html.ValidationMessageFor(m => m.IdOrder, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group text-center m-t-20">
+                                <div class="col-xs-12">
+                                    <button id="register" type="submit" class="btn u-btn-primary btn-lg btn-block text-uppercase waves-effect waves-light">Cari</button>
+                                </div>
+                            </div>
+                            <div class="d-none d-sm-block d-md-none">
+                                <div class="h1" style="margin-bottom: 11.5rem"></div>
+                            </div>
+                        }
+                        <!-- End Promo Block - Form -->
+                    </div>
+                </div>
+
+                <!-- Promo Block - Info -->
+                <div class="col-lg-5 align-self-center g-color-white d-none d-lg-block">
+                    <div class="g-px-50--lg">
+                        <h2 class="g-color-white g-font-weight-600 g-font-size-40 g-font-size-60--md g-mb-30">
+                            Pencarian Pesanan
+                        </h2>
+                        <h1 class="h4 g-color-white g-font-weight-300 g-letter-spacing-1 mb-5">Gunakanlah layanan ini dengan bijak dan ingatlah masih banyak orang yang membutuhkan</h1>
+                    </div>
+                </div>
+                <!-- End Promo Block - Info -->
+            </div>
+        </div>
+    </div>
+</section>
+@if (ViewBag.Items != null)
+{
+        <section class="g-py-100">
+            <div class="container">
+                <div class="text-uppercase u-heading-v2-4--bottom g-brd-primary g-mb-30">
+                    <h2 class="u-heading-v2__title g-line-height-1 g-letter-spacing-2 g-font-weight-700 g-font-size-30 g-font-size-40--md g-color-black mb-0">Data Pencarian</h2>
+                </div>
+
+                <!-- Products Block -->
+                <div class="row">
+                    <div class="col-lg-8 g-mb-50 g-mb-0--lg">
+                        <div class="g-overflow-x-scroll g-overflow-x-visible--lg">
+                            <table class="text-center g-width-900 g-width-100x--lg g-color-gray-dark-v4">
+                                <thead class="g-color-gray-dark-v5 g-font-weight-700 g-font-size-16 text-uppercase">
+                                    <tr>
+                                        <th class="g-pb-20">Nama Barang</th>
+                                        <th class="g-pb-20">Stok</th>
+                                        <th class="g-width-250 g-pb-20">Jumlah</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in ViewBag.Items)
+                                    {
+                                        <tr>
+                                            <td class="text-left g-pa-15">
+                                                <!-- Table Image -->
+                                                <img class="d-inline-block g-brd-gray-light-v4 g-brd-around g-width-120 g-mr-15" src="@item.Item.Images" alt="Image Description">
+                                                <!-- End Table Image -->
+                                                <!-- Table Info -->
+                                                <div class="d-inline-block align-middle">
+                                                    <h4 class="h6 g-color-black g-font-weight-700 text-uppercase">@item.Item.Name</h4>
+                                                </div>
+                                                <!-- End Table Info -->
+                                            </td>
+
+                                            <td>@item.Item.Amount @item.Item.Unit.ToString()</td>
+                                            <td>
+                                                <div class="d-inline-block">
+                                                    <div class="js-quantity input-group u-quantity-v1 g-width-150 g-height-45 g-brd-gray-light-v4 g-brd-primary--focus">
+                                                        <input class="js-result form-control text-center rounded-0 g-pa-15 g-brd-gray-light-v4" name="Amount" value="@item.Amount" readonly="" type="text">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="stickyblock-end"></div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div id="stickyblock-start" class="js-sticky-block g-sticky-block--lg g-pt-20" data-start-point="#stickyblock-start" data-end-point="#stickyblock-end">
+                            <!-- News Feed -->
+                            <div class="g-mb-40">
+                                <form id="registrationFormTop" method="post">
+                                    <input type="hidden" name="Id" value="@ViewBag.Id" />
+                                    @if (ViewBag.Status == "Pending")
+                                    {
+                                        <div class="g-brd-primary--focus text-center g-mb-15">
+                                            <div class="g-bg-primary g-color-white g-font-size-16">Menunggu Persetujuan</div>
+                                            <div class="form-control g-color-gray-dark-v4 g-brd-primary g-font-size-14 rounded-0">
+                                                <div class="text-center g-font-size-14 g-color-gray-dark-v5">
+                                                    Permintaan barang yang kamu ajukan menunggu persetujuan Admin, terima kasih
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (ViewBag.Status == "Approved")
+                                    {
+                                        <div class="g-brd-primary--focus text-center g-mb-15">
+                                            <div class="g-bg-primary g-color-primary g-font-size-16">Telah Disetujui</div>
+                                            <div class="form-control g-color-gray-dark-v4 g-brd-primary g-font-size-14 rounded-0">
+                                                <div class="text-center g-font-size-14 g-color-gray-dark-v5">
+                                                    Permintaan barang yang kamu ajukan telah disetujui oleh Admin, mohon untuk menunggu pengiriman barang
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (ViewBag.Status == "Rejected")
+                                    {
+                                        <div class="g-brd-primary--focus text-center g-mb-15">
+                                            <div class="g-bg-primary g-color-white g-font-size-16">Halo</div>
+                                            <div class="form-control g-color-gray-dark-v4 g-brd-primary g-font-size-14 rounded-0">
+                                                <div class="text-center g-font-size-14 g-color-gray-dark-v5">
+                                                    Mohon maaf permintaan barang yang kamu ajukan tidak bisa kami kirim
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                </form>
+                                <div class="g-brd-primary--focus text-center g-mb-15">
+                                    <div class="g-bg-red g-color-white g-font-size-16">Alamat Pengiriman</div>
+                                    <div class="form-control g-color-gray-dark-v4 g-brd-red g-font-size-14 rounded-0">
+                                        <div class="text-center g-font-size-14 g-color-gray-dark-v5">
+                                            @ViewBag.Order.DeliveryAddress
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- End Article -->
+                            </div>
+                        </div>
+
+                        <!-- End Products Block -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+}

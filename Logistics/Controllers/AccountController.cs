@@ -36,25 +36,40 @@ namespace Logistics.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("Register", model);
             }
-
+            var user = await UserManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Email atau Password salah, silahkan coba lagi.");
+            }
+            else
+            {
+                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        if (SignInManager.UserManager.IsInRole(user.Id, "Administrator"))
+                        {
+                            return RedirectToAction("Items", "Organizations");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt.");
+                        return View(model);
+                }
+            }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
+            return View("Register");
         }
 
         //
@@ -124,58 +139,49 @@ namespace Logistics.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(ViewModels.Register register)
         {
-            if (ModelState.IsValid)
+            var currentUTCTime = DateTimeOffset.UtcNow;
+            var province = await db.Provinces.Where(x => x.IdProvince == "ID-JB").SingleOrDefaultAsync();
+            var user = new Models.ApplicationUser()
             {
-                var currentUTCTime = DateTimeOffset.UtcNow;
-                var province = await db.Provinces.Where(x => x.IdProvince == register.Province).SingleOrDefaultAsync();
-                var user = new Models.ApplicationUser()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    FullName = register.FullName,
-                    UserName = register.Email,
-                    PhoneNumber = register.PhoneNumber,
-                    Registered = DateTimeOffset.UtcNow,
-                    Email = register.Email,
-                    Institution = register.Institution,
-                    Title = register.Title
+                Id = Guid.NewGuid().ToString(),
+                FullName = register.FullName,
+                UserName = register.Email,
+                PhoneNumber = register.PhoneNumber,
+                Registered = DateTimeOffset.UtcNow,
+                Email = register.Email,
+                Institution = register.Institution,
+                Title = register.Title
 
-                };
-                var searchUser = await db.Users.Where(x => x.Email == register.Email).SingleOrDefaultAsync();
-                if (searchUser == null)
+            };
+            var searchUser = await db.Users.Where(x => x.Email == register.Email).SingleOrDefaultAsync();
+            if (searchUser == null)
+            {
+                var addVolunteer = await UserManager.CreateAsync(user, "2020@Logistik!");
+                var currentUser = await UserManager.FindByEmailAsync(register.Email);
+                var addToRoleResult = await UserManager.AddToRoleAsync(currentUser.Id, "Volunteer");
+                if (addVolunteer.Succeeded && addToRoleResult.Succeeded)
                 {
-                    var addVolunteer = await UserManager.CreateAsync(user, register.Password);
-                    var currentUser = await UserManager.FindByEmailAsync(register.Email);
-                    var addToRoleResult = await UserManager.AddToRoleAsync(currentUser.Id, "Volunteer");
-                    if (addVolunteer.Succeeded && addToRoleResult.Succeeded)
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    var addUserProvince = await db.Users.Include("Province").
+                                                    Where(x => x.Id == currentUser.Id).SingleOrDefaultAsync();
+                    addUserProvince.Province = province;
+                    var result = await db.SaveChangesAsync();
+                    if (result > 0)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        var addUserProvince = await db.Users.Include("Province").
-                                                        Where(x => x.Id == currentUser.Id).SingleOrDefaultAsync();
-                        addUserProvince.Province = province;
-                        var result = await db.SaveChangesAsync();
-                        if (result > 0)
-                        {
-                            return RedirectToAction("Index", "Home");
-                        }
-                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                        // Send an email with this link
-                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                       
+                        return Json("OK", JsonRequestBehavior.AllowGet);
                     }
-                    AddErrors(addVolunteer);
                 }
-                else
-                {
-                    return View("Information");
-                }
-               
             }
-
-            // If we got this far, something failed, redisplay form
-            return View(register);
+            else
+            {
+                var result = await SignInManager.PasswordSignInAsync(searchUser.Email, "2020@Logistik!", false, shouldLockout: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return Json("OK", JsonRequestBehavior.AllowGet);
+                }
+            }
+            return View("Login", register);
         }
 
         //

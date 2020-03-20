@@ -83,26 +83,16 @@
                         <div class="collapse navbar-collapse align-items-center flex-sm-row" id="navBar">
                             <ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-12 g-pt-20 g-pt-0--lg ml-auto">
                                 <li class="nav-item g-mr-8--lg g-mb-7 g-mb-0--lg active">
-                                    <a href="@Url.Action("Index", "Home")" style="color: #f5e419" class="nav-link p-0">Home <span class="sr-only">(current)</span></a>
+                                    <a href="@Url.Action("Index", "Home")" style="color: #f5e419" class="nav-link p-0">Order Items <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
+                                    <a href="@Url.Action("TrackingOrder", "Home")" class="nav-link p-0">Tracking Order</a>
                                 </li>
                                 @if (Request.IsAuthenticated)
                                 {
-                                    if (User.IsInRole("Participant"))
-                                    {
-                                        <li class="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
-                                            <a href="@Url.Action("ProfilesParticipant", "Participants")" class="nav-link p-0">Profil</a>
-                                        </li>
-                                        <li class="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
-                                            <a href="@Url.Action("Logout", "Account")" class="nav-link p-0">Logout</a>
-                                        </li>
-                                    }
-                                    else
-                                    {
-                                        <li class="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
-                                            <a href="@Url.Action("Logout", "Account")" class="nav-link p-0">Logout</a>
-                                        </li>
-                                    }
-
+                                    <li class="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
+                                        <a href="@Url.Action("Logout", "Account")" class="nav-link p-0">Logout</a>
+                                    </li>
                                 }
                                 else
                                 {

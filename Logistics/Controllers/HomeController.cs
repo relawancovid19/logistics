@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Logistics.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class HomeController : BaseController
     {
         public async Task<ActionResult> Index()
@@ -62,27 +62,60 @@ namespace Logistics.Controllers
 
         public async Task<ActionResult> AddItem(ViewModels.AddItem data)
         {
-            var order = await db.Orders.Include("Items").Where(x => x.Id == data.IdOrder && x.User.UserName == User.Identity.Name).OrderByDescending(x => x.Created).FirstOrDefaultAsync();
+            var order = await db.Orders.Include("Items").Include("Items.Item").Where(x => x.Id == data.IdOrder && x.User.UserName == User.Identity.Name).OrderByDescending(x => x.Created).FirstOrDefaultAsync();
             if(order != null)
             {
                 var item = await db.Items.FindAsync(data.Id);
-                var addItem = new Models.OrderItem()
+                var exist = order.Items.Where(x => x.Item.Id == data.Id).SingleOrDefault();
+                if (exist != null)
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    Amount = data.Amount,
-                    Item = item,
-                    Unit = item.Unit
-                };
-                order.Items.Add(addItem);
-                var result = await db.SaveChangesAsync();
-                if(result > 0)
+                    exist.Amount = data.Amount;
+                    db.Entry(exist).State = EntityState.Modified;
+                    var result = await db.SaveChangesAsync();
+                    if (result > 0)
+                    {
+                        return RedirectToAction("PreviewOrder", new { id = data.IdOrder });
+                    }
+                }
+                else
                 {
-                    return RedirectToAction("PreviewOrder", new { id = data.IdOrder });
+                    var addItem = new Models.OrderItem()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Amount = data.Amount,
+                        Item = item,
+                        Unit = item.Unit
+                    };
+                    order.Items.Add(addItem);
+                    var result = await db.SaveChangesAsync();
+                    if (result > 0)
+                    {
+                        return RedirectToAction("PreviewOrder", new { id = data.IdOrder });
+                    }
                 }
             }
             return View("Error");
         }
+        [AllowAnonymous]
+        public async Task<ActionResult> TrackingOrder()
+        {
+            return View();
+        }
 
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<ActionResult> TrackingOrder(ViewModels.TrackingOrder data)
+        {
+            var order = await db.Orders.Include("Items").Include("Items.Item").Where(x => x.Id == data.IdOrder && x.User.UserName == data.Email).OrderByDescending(x => x.Created).FirstOrDefaultAsync();
+            if(order != null)
+            {
+                ViewBag.Order = order;
+                ViewBag.Items = order.Items;
+                ViewBag.Status = order.Status.ToString();
+                return View();
+            }
+            return View();
+        }
         public async Task<ActionResult> PreviewOrder(string id)
         {
             var items = await db.Items.ToListAsync();
@@ -95,9 +128,19 @@ namespace Logistics.Controllers
         }
         public async Task<ActionResult> SubmitOrder(string id)
         {
-            var order = await db.Orders.Include("Items").Where(x => x.Id == id && x.User.UserName == User.Identity.Name).OrderByDescending(x => x.Created).FirstOrDefaultAsync();
+            var order = await db.Orders.Include("Items").Include("Items.Item").Where(x => x.Id == id && x.User.UserName == User.Identity.Name).OrderByDescending(x => x.Created).FirstOrDefaultAsync();
             if(order != null)
             {
+                foreach(var item in order.Items)
+                {
+                    var items = await db.Items.Where(x => x.Id == item.Item.Id).SingleOrDefaultAsync();
+                    if(items != null)
+                    {
+                        items.Amount = items.Amount - item.Amount;
+                        db.Entry(items).State = EntityState.Modified;
+                        await db.SaveChangesAsync();
+                    }
+                }
                 order.Status = Models.OrderStatus.Pending;
                 db.Entry(order).State = EntityState.Modified;
                 var result = await db.SaveChangesAsync();

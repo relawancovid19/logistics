@@ -1,7 +1,7 @@
 ﻿@using Logistics.ViewModels
-@model LoginViewModel
+@model Register
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Logistik";
     Layout = "~/Views/Shared/_LayoutAccount.cshtml";
 }
 
@@ -9,65 +9,108 @@
 
 <!-- Login -->
 <section class="g-min-height-100vh g-flex-centered" style="background-image:url(/assets/images/backgrounds/background.jpg);">
-    <div class="container g-py-100">
+    <div class="container g-py-30">
         <div class="row justify-content-center">
             <div class="col-sm-8 col-lg-5">
                 <div class="u-shadow-v24 g-bg-white rounded g-py-40 g-px-30">
                     <header class="text-center mb-4">
-                        <h2 class="h2 g-color-black g-font-weight-600">Masuk</h2>
+                        <h2 class="h2 g-color-black g-font-weight-600">Formulir Permintaan Barang</h2>
                     </header>
 
                     <!-- Form -->
-                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "g-py-15", role = "form" }))
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "Register" }))
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="mb-4">
                             <div class="input-group g-brd-primary--focus">
                                 <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
-                                    <i class="icon-communication-005 u-line-icon-pro"></i>
+                                    <i class="fa fa-user-o"></i>
                                 </span>
-                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control g-color-black g-bg-white g-brd-gray-light-v4 g-py-15 g-px-15", placeholder = "Masukkan Alamat Email" })
+                                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control g-color-black g-bg-white g-brd-gray-light-v4 g-py-15 g-px-15", placeholder = "Nama Lengkap" })
                                 @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
-                        <div class="g-mb-25">
-                            <div class="input-group g-brd-primary--focus mb-4">
+                        <div class="mb-4">
+                            <div class="input-group g-brd-primary--focus">
                                 <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
-                                    <i class="icon-media-094 u-line-icon-pro"></i>
+                                    <i class="icon-communication-005 u-line-icon-pro"></i>
                                 </span>
-                                @Html.PasswordFor(m => m.Password, new { @class = "form-control g-color-black g-bg-white g-brd-gray-light-v4 g-py-15 g-px-15", placeholder = "Masukkan Kata Sandi" })
-                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control g-color-black g-bg-white g-brd-gray-light-v4 g-py-15 g-px-15", placeholder = "Alamat Email" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                             </div>
-
-                            <div class="row justify-content-between">
-                                @*<div class="form-group col align-self-center">
-                                        <label class="form-check-inline u-check g-color-gray-dark-v5 g-font-size-12 g-pl-25 mb-0">
-                                            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox">
-                                            <div class="u-check-icon-checkbox-v6 g-absolute-centered--y g-left-0">
-                                                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "u-check-icon-checkbox-v6 g-absolute-centered--y g-left-0" })
-                                                <i class="fa g-rounded-2" data-check-icon=""></i>
-                                            </div>
-                                            Keep signed in
-                                        </label>
-                                    </div>*@
-                                <div class="col align-self-center text-right">
-                                    <a class="g-font-size-14" href="@Url.Action("ForgotPassword", "Account")"><i class="fa fa-lock m-r-5"></i> Lupa Kata Sandi?</a>
+                        </div>
+                        <div class="mb-4">
+                            <div class="input-group g-brd-primary--focus">
+                                <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
+                                    <i class="fa fa-phone"></i>
+                                </span>
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control g-color-black g-bg-white g-brd-gray-light-v4 g-py-15 g-px-15", placeholder = "Nomor Telepon" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-4">
+                                    <div class="input-group g-brd-primary--focus">
+                                        <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
+                                            <i class="fa fa-building-o"></i>
+                                        </span>
+                                        @Html.TextBoxFor(m => m.Institution, new { @class = "form-control g-color-black g-bg-white g-brd-gray-light-v4 g-py-15 g-px-15", placeholder = "Institusi" })
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-4">
+                                    <div class="input-group g-brd-primary--focus">
+                                        <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
+                                            <i class="fa fa-id-card-o"></i>
+                                        </span>
+                                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control g-color-black g-bg-white g-brd-gray-light-v4 g-py-15 g-px-15", placeholder = "Jabatan" })
+                                        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        @*<div class="row">
+                            <div class="col-md-6">
+
+                            </div>*@
+                        @*<div class="col-md-6">
+                                <div class="mb-4">
+                                    <div class="input-group g-brd-primary--focus">
+                                        <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
+                                            <i class="fa fa-building-o"></i>
+                                        </span>
+                                        <div id="inputGroup1_2" class="form-control g-brd-gray-light-v4 h-100 g-font-size-default g-theme-color-gray-dark-v2 g-placeholder-inherit g-bg-white g-bg-white--focus g-brd-white g-brd-gray-light-v3--hover g-brd-gray-light-v3--focus g-rounded-1 g-py-9 g-px-12 g-transition-0_2 g-transition--ease-in">
+                                            @Html.DropDownList("Province", (IEnumerable<SelectListItem>)ViewBag.Provinces, "Pilih Domisili", new
+                                            {
+                                                @class = "form-control border-right-0 border-top-0 border-left-0",
+                                                id = "Province",
+                                                style = "width:100%"
+                                            })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                        @*</div>*@
 
                         <div class="mb-4">
-                            <button class="btn btn-md btn-block u-btn-primary g-py-12 g-font-size-16" type="submit">Masuk</button>
+                            <button class="btn btn-md btn-block u-btn-primary g-py-12 g-font-size-16" type="submit">Daftar</button>
                         </div>
+                        @*<div class="row justify-content-between">
+                                <div class="col align-self-center text-right">
+                                    <a class="g-font-size-14" href="@Url.Action("Login", "Account")">Kembali</a>
+                                </div>
+                            </div>*@
                     }
                     <!-- End Form -->
-                    <footer class="text-center">
-                        <p class="g-color-gray-dark-v5 g-font-size-14 mb-0">
-                            Tidak punya akun? <a class="g-font-weight-600" href="@Url.Action("Register", "Account")">Buat Akun</a>
-                        </p>
-                    </footer>
+                    @*<footer class="text-center">
+                            <p class="g-color-gray-dark-v5 g-font-size-14 mb-0">
+                                Tidak punya akun? <a class="g-font-weight-600" href="@Url.Action("Register", "Account")">Buat Akun</a>
+                            </p>
+                        </footer>*@
                 </div>
             </div>
         </div>
@@ -193,25 +236,55 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-<script>
-    $(document).ready(function () {
+    <script>
+        $(document).ready(function () {
 
-        $('#js-carousel-7').slick('setOption', 'responsive', [{
-            breakpoint: 992,
-            settings: {
-                slidesToShow: 3
-            }
-        }, {
-            breakpoint: 768,
-            settings: {
-                slidesToShow: 2
-            }
-        }, {
-            breakpoint: 554,
-            settings: {
-                slidesToShow: 1
-            }
-        }], true);
-    });
-</script>
+            $('#js-carousel-7').slick('setOption', 'responsive', [{
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 3
+                }
+            }, {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2
+                }
+            }, {
+                breakpoint: 554,
+                settings: {
+                    slidesToShow: 1
+                }
+            }], true);
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#Register").submit(function (e) {
+                e.preventDefault();
+                var data = $('#Register').serialize();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Register", "Account")',
+                    data: data,
+                    success: function (data) {
+                        if (data == "OK") {
+                            location.href = "@Url.Action("Index","Home")"
+                        } else if(data == "Invalid") {
+                            swal({
+                                title: "Kode Salah",
+                                text: "Hanya dapat menggunakan format ( A-Z, 0-9 dan - )",
+                                icon: "error"
+                            });
+                        }else if(data == "Exists") {
+                            swal({
+                                title: "Kode sudah digunakan",
+                                text: "Gunakan Kode lain karena kode sudah ada",
+                                icon: "error"
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 }
