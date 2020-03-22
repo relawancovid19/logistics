@@ -83,12 +83,12 @@
                         <div class="collapse navbar-collapse align-items-center flex-sm-row" id="navBar">
                             <ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-12 g-pt-20 g-pt-0--lg ml-auto">
                                 <li class="nav-item g-mr-8--lg g-mb-7 g-mb-0--lg active">
-                                    <a href="@Url.Action("Index", "Home")" style="color: #f5e419" class="nav-link p-0">Order Items <span class="sr-only">(current)</span></a>
+                                    <a href="@Url.Action("Index", "Home")" style="color: #f5e419" class="nav-link p-0">Create Order<span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
                                     <a href="@Url.Action("TrackingOrder", "Home")" class="nav-link p-0">Tracking Order</a>
                                 </li>
-                                @if (Request.IsAuthenticated)
+                                @*@if (Request.IsAuthenticated)
                                 {
                                     <li class="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
                                         <a href="@Url.Action("Logout", "Account")" class="nav-link p-0">Logout</a>
@@ -99,7 +99,7 @@
                                     <li class="nav-item g-mx-15--lg g-mb-7 g-mb-0--lg">
                                         <a href="@Url.Action("Login", "Account")" class="nav-link p-0">Login</a>
                                     </li>
-                                }
+                                }*@
                             </ul>
                         </div>
                         <button class="navbar-toggler btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-15 g-right-0" type="button"
