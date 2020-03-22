@@ -26,10 +26,11 @@ namespace Logistics.Models
     {
         Processing,
         Pending,
-        Rejected,
+        Confirmed,
         Approved,
-        Deleted,
-        Delivered
+        Delivered,
+        Rejected,
+        Deleted
     }
     public enum Priority
     {
