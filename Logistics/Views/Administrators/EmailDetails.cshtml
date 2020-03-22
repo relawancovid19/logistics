@@ -1,0 +1,27 @@
+﻿@model Logistics.Models.EmailTemplate
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdministrators.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col-md-6 col-8 align-self-center">
+        <h3 class="text-themecolor m-b-0 m-t-0">Kelola Email Template</h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("EmailTemplates")">Email Template</a></li>
+            <li class="breadcrumb-item active">@Model.Subject</li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <p class="text-muted m-b-20">
+                    <a class="btn btn-info" href="@Url.Action("EditEmail", new { id = Model.IdEmailTemplate })">Edit</a>
+                </p>
+                <div id="Preview">@Html.Raw(HttpUtility.HtmlDecode(Model.Content))</div>
+            </div>
+        </div>
+    </div>
+</div>

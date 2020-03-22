@@ -117,16 +117,24 @@ namespace Logistics.Controllers
                 var result = await db.SaveChangesAsync();
                 if (result > 0)
                 {
-                    //if (data.Status == Models.OrderStatus.Approved)
-                    //{
-                    //    await SendProgramRegistrationEmail(volunteer.Job, volunteer.Volunteer);
-
-                    //}
+                    if (data.Status == Models.OrderStatus.Approved)
+                    {
+                        await SendOrderApproveEmail(volunteer.User);
+                    }
                     return RedirectToAction("DetailOrder", new { id = data.Id });
 
                 }
             }
             return View("Error");
+        }
+        private async Task SendOrderApproveEmail(Models.ApplicationUser user)
+        {
+            var emailTemplate = await db.EmailTemplates.FindAsync("approve-order");
+            if (emailTemplate != null)
+            {
+                var emailBody = emailTemplate.Content.Replace("[FullName]", user.FullName);
+                await Helpers.EmailHelper.Send(emailTemplate.Subject.Replace("[SessionName]", user.FullName), user.Email, user.FullName, emailBody);
+            }
         }
     }
 }

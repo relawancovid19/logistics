@@ -1,6 +1,6 @@
 ﻿@model Logistics.Models.Item
 @{
-    Layout = "~/Views/Shared/_LayoutOrganizations.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdministrators.cshtml";
 }
 
 <div class="row page-titles">
@@ -19,16 +19,16 @@
             <div class="card-body">
                 <h4 class="card-title">Stok</h4>
                 <h6 class="card-subtitle">Untuk menambahkan Stok Barang</h6>
-                @using (Html.BeginForm("AddStock", "Organizations", FormMethod.Post, new { enctype = "multipart/form-data", id = "AddJob" }))
+                @using (Html.BeginForm("AddStock", "Administrators", FormMethod.Post, new { enctype = "multipart/form-data", id = "AddJob" }))
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(x => x.Id);
+                        @Html.HiddenFor(x => x.Id)
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Nama Barang", required = "required", Disabled="Disabled" } })
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Nama Barang", required = "required", Disabled = "Disabled" } })
                                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="form-actions">
                         <input type="submit" value="Tambah" class="btn btn-info" />
-                        @Html.ActionLink("Batal", "Items", null, new { @class = "btn btn-inverse" })
+                        @Html.ActionLink("Batal", "Organizations", null, new { @class = "btn btn-inverse" })
                     </div>
                 }
             </div>
@@ -67,42 +67,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script>
-        tinymce.init({
-            selector: "#Descriptions",
-            theme: "modern",
-            height: 300,
-            plugins: [
-                "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                "save table contextmenu directionality emoticons template paste textcolor"
-            ],
-            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
-
-        });
-
-        tinymce.init({
-            selector: "#ShortDescriptions",
-            theme: "modern",
-            height: 300,
-            plugins: [
-                "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                "save table contextmenu directionality emoticons template paste textcolor"
-            ],
-            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
-
-        });
-
-        $(function () {
-            $('#Start').datetimepicker({
-                format: 'DD/MM/YYYY HH:mm'
-            });
-            $('#Finish').datetimepicker({
-                format: 'DD/MM/YYYY HH:mm'
-            });
-        });
-    </script>
-
 }
 

@@ -1,0 +1,72 @@
+﻿@model Logistics.Models.EmailTemplate
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdministrators.cshtml";
+
+}
+
+<div class="row page-titles">
+    <div class="col-md-6 col-8 align-self-center">
+        <h3 class="text-themecolor m-b-0 m-t-0">Kelola Email Template</h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("EmailTemplates")">Email Template</a></li>
+            <li class="breadcrumb-item active">Edit Email Template</li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                @using (Html.BeginForm("EditEmail", "Administrators", FormMethod.Post, new { @class = "form-basic" }))
+                {
+                    <form class="form">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.IdEmailTemplate)
+                        <div class="form-group row">
+                            <div class="col-12">
+                                @Html.LabelFor(model => model.Subject)
+                                @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-6">
+                                @Html.LabelFor(model => model.Content)
+                                <textarea rows="50" name="Content" id="Content" class="c-responsive text-html">@Model.Content</textarea>
+                                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-6">
+                                <label>Preview</label>
+                                <div id="Preview"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <input type="submit" value="Simpan" class="btn btn-info" />
+                                @Html.ActionLink("Kembali", "EmailTemplates", null, new { @class = "btn btn-secondary" })
+                            </div>
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var content = $("#Content").val();
+            $("#Preview").append(content);
+
+            $("#Content").keyup(function () {
+                var content = $("#Content").val();
+                $("#Preview").empty();
+                $("#Preview").append(content);
+            });
+        });
+    </script>
+}
