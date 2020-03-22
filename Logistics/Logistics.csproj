@@ -234,6 +234,7 @@
     <Compile Include="Models\Province.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="ViewModels\EmailTemplate.cs" />
     <Compile Include="ViewModels\LogisticsViewModels.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -602,6 +603,7 @@
     <Content Include="assets\css\style-ava.css" />
     <Content Include="assets\css\style.css" />
     <Content Include="assets\css\styles.op-event.css" />
+    <Content Include="assets\css\table.css" />
     <Content Include="assets\css\unify-components.css" />
     <Content Include="assets\css\unify-core.css" />
     <Content Include="assets\css\unify-globals.css" />
@@ -5654,6 +5656,16 @@
     <Content Include="Views\Home\TrackingOrder.cshtml" />
     <Content Include="Views\Home\InfoData.cshtml" />
     <Content Include="Views\Home\Finish.cshtml" />
+    <Content Include="Views\Administrators\AddEmailTemplate.cshtml" />
+    <Content Include="Views\Administrators\AddStock.cshtml" />
+    <Content Include="Views\Administrators\DetailOrder.cshtml" />
+    <Content Include="Views\Administrators\EditEmail.cshtml" />
+    <Content Include="Views\Administrators\EditItem.cshtml" />
+    <Content Include="Views\Administrators\EmailDetails.cshtml" />
+    <Content Include="Views\Administrators\EmailTemplates.cshtml" />
+    <Content Include="Views\Administrators\Items.cshtml" />
+    <Content Include="Views\Administrators\Orders.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdministrators.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

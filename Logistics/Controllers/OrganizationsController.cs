@@ -121,6 +121,14 @@ namespace Logistics.Controllers
                     {
                         await SendOrderApproveEmail(volunteer.User);
                     }
+                    else if (data.Status == Models.OrderStatus.Rejected)
+                    {
+                        await SendOrderRejectEmail(volunteer.User);
+                    }
+                    else if (data.Status == Models.OrderStatus.Delivered)
+                    {
+                        await SendOrderDeliveredEmail(volunteer.User);
+                    }
                     return RedirectToAction("DetailOrder", new { id = data.Id });
 
                 }
@@ -133,7 +141,25 @@ namespace Logistics.Controllers
             if (emailTemplate != null)
             {
                 var emailBody = emailTemplate.Content.Replace("[FullName]", user.FullName);
-                await Helpers.EmailHelper.Send(emailTemplate.Subject.Replace("[SessionName]", user.FullName), user.Email, user.FullName, emailBody);
+                await Helpers.EmailHelper.Send(emailTemplate.Subject, user.Email, user.FullName, emailBody);
+            }
+        }
+        private async Task SendOrderRejectEmail(Models.ApplicationUser user)
+        {
+            var emailTemplate = await db.EmailTemplates.FindAsync("reject-order");
+            if (emailTemplate != null)
+            {
+                var emailBody = emailTemplate.Content.Replace("[FullName]", user.FullName);
+                await Helpers.EmailHelper.Send(emailTemplate.Subject, user.Email, user.FullName, emailBody);
+            }
+        }
+        private async Task SendOrderDeliveredEmail(Models.ApplicationUser user)
+        {
+            var emailTemplate = await db.EmailTemplates.FindAsync("delivered-order");
+            if (emailTemplate != null)
+            {
+                var emailBody = emailTemplate.Content.Replace("[FullName]", user.FullName);
+                await Helpers.EmailHelper.Send(emailTemplate.Subject, user.Email, user.FullName, emailBody);
             }
         }
     }

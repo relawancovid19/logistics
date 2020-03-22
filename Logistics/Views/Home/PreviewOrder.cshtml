@@ -33,9 +33,9 @@
                                             <td>
                                                 <input type="hidden" name="Id" value="@item.Id" />
                                                 <input type="hidden" name="IdOrder" value="@ViewBag.Id" />
-                                                <input class="form-control rounded-0 g-pa-15 g-brd-gray-light-v4" name="Amount" min="1" max="@item.Amount" value="0" type="number">
+                                                <input class="form-control text-center rounded-0 g-pa-15 g-brd-gray-light-v4" name="Amount" min="1" max="@item.Amount" value="0" type="number">
                                             </td>
-                                            <td class="g-color-black g-font-weight-600"><button type="submit" class="btn btn-info">simpan</button> </td>
+                                            <td class="g-color-black g-font-weight-600"><button type="submit" class="btn btn-warning">simpan</button> </td>
                                         }
 
                                     }
@@ -150,7 +150,7 @@
     <link href="~/assets/vendor/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/assets/vendor/icon-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/assets/vendor/icon-line-pro/style.css">
-    <link href="~/assets/admin/css/style.css" rel="stylesheet">
+    <link href="~/assets/css/table.css" rel="stylesheet">
 }
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
