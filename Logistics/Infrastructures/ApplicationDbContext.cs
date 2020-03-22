@@ -24,5 +24,6 @@ namespace Logistics.Infrastructures
         public DbSet<Delivery> Deliveries { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<Province> Provinces { get; set; }
+        public DbSet<EmailTemplate> EmailTemplates { get; set; }
     }
 }
