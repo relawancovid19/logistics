@@ -9,19 +9,19 @@ using System.Web.Mvc;
 
 namespace Logistics.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : BaseController
     {
         public async Task<ActionResult> Index()
         {
-            var provinces = await db.Provinces.Where(x => x.IsActive == true)
-                .Select(i => new SelectListItem()
-                {
-                    Text = i.Name,
-                    Value = i.IdProvince,
-                    Selected = false
-                }).ToArrayAsync();
-            ViewBag.Provinces = provinces;
+            //var provinces = await db.Provinces.Where(x => x.IsActive == true)
+            //    .Select(i => new SelectListItem()
+            //    {
+            //        Text = i.Name,
+            //        Value = i.IdProvince,
+            //        Selected = false
+            //    }).ToArrayAsync();
+            //ViewBag.Provinces = provinces;
 
             var items = await db.Items.ToListAsync();
             ViewBag.Items = items;
@@ -29,41 +29,78 @@ namespace Logistics.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult> CreateOrder(ViewModels.Order data)
+        public async Task<ActionResult> CreateOrder(ViewModels.Register register)
         {
-            if (ModelState.IsValid)
+            var checkUser = await CheckUser(register);
+            if (checkUser != null)
             {
                 var province = await db.Provinces.Where(x => x.IdProvince == "ID-JB").SingleOrDefaultAsync();
-                var user = await db.Users.Where(x => x.UserName == User.Identity.Name).SingleOrDefaultAsync();
                 var newOrder = new Models.Order()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Title = data.Title,
-                    Descriptions = data.Descriptions,
-                    Priority = data.Priority,
                     Province = province,
                     Created = DateTimeOffset.Now,
-                    User = user,
-                    DeliveryAddress = data.DeliveryAddress,
+                    User = checkUser,
                     Status = Models.OrderStatus.Processing
                 };
                 db.Orders.Add(newOrder);
                 var result = await db.SaveChangesAsync();
-                if(result > 0)
+                if (result > 0)
                 {
                     return RedirectToAction("PreviewOrder", new { id = newOrder.Id });
                 }
             }
             return View();
         }
+        public async Task<Models.ApplicationUser> CheckUser(ViewModels.Register register)
+        {
+            var currentUTCTime = DateTimeOffset.UtcNow;
+            var province = await db.Provinces.Where(x => x.IdProvince == "ID-JB").SingleOrDefaultAsync();
+            var user = new Models.ApplicationUser()
+            {
+                Id = Guid.NewGuid().ToString(),
+                FullName = register.FullName,
+                UserName = register.Email,
+                PhoneNumber = register.PhoneNumber,
+                Registered = DateTimeOffset.UtcNow,
+                Email = register.Email,
+                Institution = register.Institution,
+                Title = register.Title,
+                EmailConfirmed = true
 
+            };
+            var searchUser = await db.Users.Where(x => x.Email == register.Email).SingleOrDefaultAsync();
+            if (searchUser == null)
+            {
+                var addVolunteer = await UserManager.CreateAsync(user, "2020@Logistik!");
+                var currentUser = await UserManager.FindByEmailAsync(register.Email);
+                var addToRoleResult = await UserManager.AddToRoleAsync(currentUser.Id, "Requestor");
+                if (addVolunteer.Succeeded && addToRoleResult.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    var addUserProvince = await db.Users.Include("Province").
+                                                    Where(x => x.Id == currentUser.Id).SingleOrDefaultAsync();
+                    addUserProvince.Province = province;
+                    var result = await db.SaveChangesAsync();
+                    if (result > 0)
+                    {
+                        return currentUser;
+                    }
+                }
+            }
+            else
+            {
+                return searchUser;
+            }
+            return null;
+        }
         public async Task<ActionResult> AddItem(ViewModels.AddItem data)
         {
-            var order = await db.Orders.Include("Items").Include("Items.Item").Where(x => x.Id == data.IdOrder && x.User.UserName == User.Identity.Name).OrderByDescending(x => x.Created).FirstOrDefaultAsync();
+            var order = await db.Orders.Include("Items").Include("Items.Item").Where(x => x.Id == data.IdOrder).OrderByDescending(x => x.Created).FirstOrDefaultAsync();
             if(order != null)
             {
                 var item = await db.Items.FindAsync(data.Id);
-                var exist = order.Items.Where(x => x.Item.Id == data.Id).SingleOrDefault();
+                var exist = order.Items.Where(x => x.Item.Id == data.Id).FirstOrDefault();
                 if (exist != null)
                 {
                     exist.Amount = data.Amount;
@@ -118,11 +155,53 @@ namespace Logistics.Controllers
             var items = await db.Items.ToListAsync();
             ViewBag.Items = items;
             ViewBag.Id = id;
-            var cart = await db.Orders.Include("Items").Where(x => x.Id == id && x.User.UserName == User.Identity.Name).OrderByDescending(x => x.Created).FirstOrDefaultAsync();
+            var cart = await db.Orders.Include("Items").Where(x => x.Id == id).OrderByDescending(x => x.Created).FirstOrDefaultAsync();
             ViewBag.Cart = cart.Items;
             ViewBag.Status = cart.Status.ToString();
             return View();
         }
+        public async Task<ActionResult> InfoData(string id)
+        {
+            var order = await db.Orders.Include("Items").Include("Items.Item").Where(x => x.Id == id).OrderByDescending(x => x.Created).FirstOrDefaultAsync();
+            if(order != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Index");
+        }
+        public async Task<ActionResult> Finish()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> SubmitData(ViewModels.Order data)
+        {
+            if (ModelState.IsValid)
+            {
+                var province = await db.Provinces.Where(x => x.IdProvince == "ID-JB").SingleOrDefaultAsync();
+                var user = await db.Users.Where(x => x.UserName == User.Identity.Name).SingleOrDefaultAsync();
+                var newOrder = new Models.Order()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Title = data.Title,
+                    Descriptions = data.Descriptions,
+                    Priority = data.Priority,
+                    Province = province,
+                    Created = DateTimeOffset.Now,
+                    User = user,
+                    DeliveryAddress = data.DeliveryAddress,
+                    Status = Models.OrderStatus.Processing
+                };
+                db.Orders.Add(newOrder);
+                var result = await db.SaveChangesAsync();
+                if (result > 0)
+                {
+                    return RedirectToAction("Finish");
+                }
+            }
+            return View();
+        }
+
         public async Task<ActionResult> SubmitOrder(string id)
         {
             var order = await db.Orders.Include("Items").Include("Items.Item").Where(x => x.Id == id && x.User.UserName == User.Identity.Name).OrderByDescending(x => x.Created).FirstOrDefaultAsync();

@@ -5652,6 +5652,8 @@
     <Content Include="Views\Shared\_LayoutAccount.cshtml" />
     <Content Include="Views\Organizations\DetailOrder.cshtml" />
     <Content Include="Views\Home\TrackingOrder.cshtml" />
+    <Content Include="Views\Home\InfoData.cshtml" />
+    <Content Include="Views\Home\Finish.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

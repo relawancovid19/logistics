@@ -14,7 +14,7 @@
             <div class="col-sm-8 col-lg-5">
                 <div class="u-shadow-v24 g-bg-white rounded g-py-40 g-px-30">
                     <header class="text-center mb-4">
-                        <h2 class="g-font-size-18 g-font-size-20--md g-color-black g-font-weight-600">Formulir Permintaan Barang</h2>
+                        <h2 class="g-font-size-18 g-font-size-20--md g-color-black g-font-weight-600">Buat Pesanan Kamu Sekarang</h2>
                     </header>
 
                     <!-- Form -->
@@ -128,7 +128,6 @@
                     <tr class="color-table">
                         <th>Nama Barang</th>
                         <th>Stok</th>
-                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -136,16 +135,7 @@
                     {
                         <tr>
                             <td>@item.Name</td>
-                            <td>@item.Amount (@item.Unit.ToString())</td>
-                            <td>
-
-                                <a href="@Url.Action("AddStock", new { id = item.Id })" target="_blank" data-toggle="tooltip" data-original-title="Tambah Stok">
-                                    <i style="margin-left:5px" class="fa fa-plus m-1"></i>
-                                </a>
-                                <a href="@Url.Action("EditItem", new { id = item.Id })" target="_blank" data-toggle="tooltip" data-original-title="Edit">
-                                    <i class="fa fa-edit m-1"></i>
-                                </a>
-                            </td>
+                            <td>@item.Amount @item.Unit.ToString()</td>
                         </tr>
                     }
 
