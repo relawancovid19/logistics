@@ -14,7 +14,7 @@
             <div class="col-sm-8 col-lg-5">
                 <div class="u-shadow-v24 g-bg-white rounded g-py-40 g-px-30">
                     <header class="text-center mb-4">
-                        <h2 class="h2 g-color-black g-font-weight-600">Formulir Permintaan Barang</h2>
+                        <h2 class="g-font-size-18 g-font-size-20--md g-color-black g-font-weight-600">Formulir Permintaan Barang</h2>
                     </header>
 
                     <!-- Form -->
@@ -28,8 +28,8 @@
                                     <i class="fa fa-user-o"></i>
                                 </span>
                                 @Html.TextBoxFor(m => m.FullName, new { @class = "form-control g-color-black g-bg-white g-brd-gray-light-v4 g-py-15 g-px-15", placeholder = "Nama Lengkap" })
-                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                             </div>
+                            @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
                         </div>
                         <div class="mb-4">
                             <div class="input-group g-brd-primary--focus">
@@ -37,8 +37,9 @@
                                     <i class="icon-communication-005 u-line-icon-pro"></i>
                                 </span>
                                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control g-color-black g-bg-white g-brd-gray-light-v4 g-py-15 g-px-15", placeholder = "Alamat Email" })
-                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
                             </div>
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                         </div>
                         <div class="mb-4">
                             <div class="input-group g-brd-primary--focus">
@@ -46,33 +47,31 @@
                                     <i class="fa fa-phone"></i>
                                 </span>
                                 @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control g-color-black g-bg-white g-brd-gray-light-v4 g-py-15 g-px-15", placeholder = "Nomor Telepon" })
-                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
                             </div>
+                            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-4">
-                                    <div class="input-group g-brd-primary--focus">
-                                        <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
-                                            <i class="fa fa-building-o"></i>
-                                        </span>
-                                        @Html.TextBoxFor(m => m.Institution, new { @class = "form-control g-color-black g-bg-white g-brd-gray-light-v4 g-py-15 g-px-15", placeholder = "Institusi" })
-                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
+                        <div class="mb-4">
+                            <div class="input-group g-brd-primary--focus">
+                                <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
+                                    <i class="fa fa-id-card-o"></i>
+                                </span>
+                                @Html.TextBoxFor(m => m.Title, new { @class = "form-control g-color-black g-bg-white g-brd-gray-light-v4 g-py-15 g-px-15", placeholder = "Jabatan" })
+
                             </div>
-                            <div class="col-md-6">
-                                <div class="mb-4">
-                                    <div class="input-group g-brd-primary--focus">
-                                        <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
-                                            <i class="fa fa-id-card-o"></i>
-                                        </span>
-                                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control g-color-black g-bg-white g-brd-gray-light-v4 g-py-15 g-px-15", placeholder = "Jabatan" })
-                                        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
+                            @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
                         </div>
+                        <div class="mb-4">
+                            <div class="input-group g-brd-primary--focus">
+                                <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
+                                    <i class="fa fa-building-o"></i>
+                                </span>
+                                @Html.TextBoxFor(m => m.Institution, new { @class = "form-control g-color-black g-bg-white g-brd-gray-light-v4 g-py-15 g-px-15", placeholder = "Institusi" })
+
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Institution, "", new { @class = "text-danger" })
+                        </div>
+
                         @*<div class="row">
                             <div class="col-md-6">
 
