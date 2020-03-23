@@ -19,9 +19,9 @@
                 <header class="d-flex justify-content-between">
                     <!-- Article Icons -->
                     <h2 class="h2 g-color-black mb-0">@Model.Name</h2>
-                    <ul class="list-inline g-mb-0">
+                    @*<ul class="list-inline g-mb-0">
                         <li class="list-inline-item">
-                            <a class="u-icon-v1 u-icon-size--sm g-color-gray-light-v2 g-color-primary--hover" href="#">
+                            <a class="u-icon-v1 u-icon-size--sm g-color-gray-light-v2 g-color-primary--hover" href="https://www.facebook.com/sharer/sharer.php?u=http://logistics.relawancovid19.id//e/@Model.Id">
                                 <i class="fa fa-facebook"></i>
                             </a>
                         </li>
@@ -40,7 +40,7 @@
                                 <i class="fa fa-pinterest"></i>
                             </a>
                         </li>
-                    </ul>
+                    </ul>*@
                     <!-- End Article Icons -->
                 </header>
 
@@ -71,6 +71,10 @@
             </div>
             <!-- End Article Content -->
         </article>
+        <div class="text-center">
+            <a class="btn btn-warning" href="@Url.Action("Index", "Home")">Kembali</a>
+        </div>
+        
         <!-- End Article -->
     </div>
     

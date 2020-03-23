@@ -611,6 +611,9 @@
     <Content Include="assets\images\backgrounds\background.jpg" />
     <Content Include="assets\images\backgrounds\banner1.jpg" />
     <Content Include="assets\images\backgrounds\banner2.jpg" />
+    <Content Include="assets\images\email-template\lines.png" />
+    <Content Include="assets\images\email-template\vector-approve.png" />
+    <Content Include="assets\images\email-template\vector-cancel.png" />
     <Content Include="assets\images\favicon\browserconfig.xml" />
     <Content Include="assets\images\icon\red.png" />
     <Content Include="assets\images\icon\relawan-icon.png" />
@@ -5667,6 +5670,7 @@
     <Content Include="Views\Administrators\Orders.cshtml" />
     <Content Include="Views\Shared\_LayoutAdministrators.cshtml" />
     <Content Include="Views\Home\DetailsItem.cshtml" />
+    <Content Include="Views\Home\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

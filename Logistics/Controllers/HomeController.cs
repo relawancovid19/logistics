@@ -173,6 +173,10 @@ namespace Logistics.Controllers
         {
             return View();
         }
+        public async Task<ActionResult> Success()
+        {
+            return View();
+        }
         [HttpPost]
         public async Task<ActionResult> SubmitData(ViewModels.Order data)
         {

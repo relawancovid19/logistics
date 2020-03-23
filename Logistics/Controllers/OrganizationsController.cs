@@ -138,9 +138,15 @@ namespace Logistics.Controllers
         private async Task SendOrderApproveEmail(Models.ApplicationUser user)
         {
             var emailTemplate = await db.EmailTemplates.FindAsync("approve-order");
+            var callbackUrl = Url.Action("TrackingOrder", "Home", null, protocol: Request.Url.Scheme);
             if (emailTemplate != null)
             {
-                var emailBody = emailTemplate.Content.Replace("[FullName]", user.FullName);
+                var emailBody = emailTemplate.Content
+                    .Replace("[FullName]", user.FullName)
+                    .Replace("[Logo]", "https://logistics.relawancovid19.id/assets/images/logo/logo-relawan-covid19.png")
+                    .Replace("[Vector]", "~/assets/images/email-template/vector-approve.png")
+                    .Replace("[Line]", "~/assets/images/email-template/lines.png")
+                    .Replace("[Url]", callbackUrl);
                 await Helpers.EmailHelper.Send(emailTemplate.Subject, user.Email, user.FullName, emailBody);
             }
         }
@@ -149,7 +155,11 @@ namespace Logistics.Controllers
             var emailTemplate = await db.EmailTemplates.FindAsync("reject-order");
             if (emailTemplate != null)
             {
-                var emailBody = emailTemplate.Content.Replace("[FullName]", user.FullName);
+                var emailBody = emailTemplate.Content
+                    .Replace("[FullName]", user.FullName)
+                    .Replace("[Logo]", "https://logistics.relawancovid19.id/assets/images/logo/logo-relawan-covid19.png")
+                    .Replace("[Vector]", "~/assets/images/email-template/vector-cancel.png")
+                    .Replace("[Line]", "~/assets/images/email-template/lines.png");
                 await Helpers.EmailHelper.Send(emailTemplate.Subject, user.Email, user.FullName, emailBody);
             }
         }
@@ -158,7 +168,11 @@ namespace Logistics.Controllers
             var emailTemplate = await db.EmailTemplates.FindAsync("delivered-order");
             if (emailTemplate != null)
             {
-                var emailBody = emailTemplate.Content.Replace("[FullName]", user.FullName);
+                var emailBody = emailTemplate.Content
+                    .Replace("[FullName]", user.FullName)
+                    .Replace("[Logo]", "https://logistics.relawancovid19.id/assets/images/logo/logo-relawan-covid19.png")
+                    .Replace("[Vector]", "~/assets/images/email-template/vector-approve.png")
+                    .Replace("[Line]", "~/assets/images/email-template/lines.png");
                 await Helpers.EmailHelper.Send(emailTemplate.Subject, user.Email, user.FullName, emailBody);
             }
         }
