@@ -24,16 +24,16 @@
                             @foreach (var item in ViewBag.Items)
                             {
                                 <tr>
-                                    <td>@item.Name</td>
+                                    <td><a href="@Url.Action("DetailsItem", new { id = item.Id })" target="_blank"><font color="blue">@item.Name</font></a></td>
                                     <td>@item.Amount @item.Unit.ToString()</td>
                                     @using (Html.BeginForm("AddItem", "Home", FormMethod.Post))
                                     {
-                                        if (ViewBag.Status != "Pending")
+                                        if (ViewBag.Status == "Processing")
                                         {
                                             <td>
                                                 <input type="hidden" name="Id" value="@item.Id" />
                                                 <input type="hidden" name="IdOrder" value="@ViewBag.Id" />
-                                                <input class="form-control text-center rounded-0 g-pa-15 g-brd-gray-light-v4" name="Amount" min="1" max="@item.Amount" value="0" type="number">
+                                                <input class="form-control text-center rounded-0 g-pa-5 g-brd-gray-light-v4" name="Amount" min="1" max="@item.Amount" value="0" type="number">
                                             </td>
                                             <td class="g-color-black g-font-weight-600"><button type="submit" class="btn btn-warning">simpan</button> </td>
                                         }
@@ -158,7 +158,9 @@
     <script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#myTable').DataTable();
+            $('#myTable').DataTable(
+                { "lengthMenu": [[5,10, 25, 50, -1], [5, 10, 25, 50, "All"]] }
+            );
 
         });
     </script>

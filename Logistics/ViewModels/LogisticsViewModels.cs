@@ -48,6 +48,7 @@ namespace Logistics.ViewModels
     }
     public class Order
     {
+        public string Id { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
@@ -69,5 +70,14 @@ namespace Logistics.ViewModels
     {
         public string Email { get; set; }
         public string IdOrder { get; set; }
+    }
+
+    public class Delivery
+    {
+        public string IdOrder { get; set; }
+        public string Id { get; set; }
+        public DateTimeOffset ETA { get; set; }
+        public string TrackingNumber { get; set; }
+        public DeliveryService Service { get; set; }
     }
 }

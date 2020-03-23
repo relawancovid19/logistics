@@ -10,8 +10,8 @@
                     @using (Html.BeginForm("SubmitData", "Home", FormMethod.Post, new { @class = "form-horizontal form-material", role = "form" }))
                     {
                         @Html.AntiForgeryToken()
+                <input type="hidden" name="Id" value="@ViewBag.Id" />
                         <div class="form-group">
-
                             <div class="col-xs-12">
                                 @Html.TextBoxFor(m => m.Title, new { @class = "form-control g-px-10 g-py-12", placeholder = "Judul Permintaan", required = "required" })
                             </div>
