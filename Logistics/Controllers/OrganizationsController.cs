@@ -101,33 +101,60 @@ namespace Logistics.Controllers
         }
         public async Task<ActionResult> DetailOrder(string id)
         {
-            var order = await db.Orders.Include("Items").Include("User").Include("Province").Where(x => x.Id == id).SingleOrDefaultAsync();
-            ViewBag.Items = await db.Orders.Include("Items").Where(x => x.Id == id).ToListAsync();
+            var order = await db.Orders.Include("Items").Include("Delivery").Include("User").Include("Province").Include("Items.Item").Where(x => x.Id == id).SingleOrDefaultAsync();
+            ViewBag.Id = order.Id;
             return View(order);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> SubmitDelivered(ViewModels.Delivery delivery, string IdOrder)
+        {
+            var order = await db.Orders.Where(x => x.Id == IdOrder).SingleOrDefaultAsync();
+            if (order != null)
+            {
+                var newDelivery = new Models.Delivery()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Created = DateTimeOffset.Now,
+                    ETA = delivery.ETA,
+                    TrackingNumber = delivery.TrackingNumber,
+                    Service = delivery.Service,
+                    Status = Models.DeliveryStatus.Procesing
+                };
+                order.Delivery = newDelivery;
+                order.Status = Models.OrderStatus.Delivered;
+                db.Entry(order).State = EntityState.Modified;
+                var result = await db.SaveChangesAsync();
+                if (result > 0)
+                {
+                    return RedirectToAction("DetailOrder", new { id = IdOrder });
+                }
+            }
+            return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> DetailOrder(ViewModels.UpdateTransaction data)
         {
-            var volunteer = await db.Orders.Include("User").Where(x => x.Id == data.Id).SingleOrDefaultAsync();
-            if (volunteer != null)
+            var order = await db.Orders.Include("User").Where(x => x.Id == data.Id).SingleOrDefaultAsync();
+            if (order != null)
             {
-                volunteer.Status = data.Status;
-                db.Entry(volunteer).State = EntityState.Modified;
+                order.Status = data.Status;
+                db.Entry(order).State = EntityState.Modified;
                 var result = await db.SaveChangesAsync();
                 if (result > 0)
                 {
                     if (data.Status == Models.OrderStatus.Approved)
                     {
-                        await SendOrderApproveEmail(volunteer.User);
+                        await SendOrderApproveEmail(order.User);
                     }
                     else if (data.Status == Models.OrderStatus.Rejected)
                     {
-                        await SendOrderRejectEmail(volunteer.User);
+                        await SendOrderRejectEmail(order.User);
                     }
                     else if (data.Status == Models.OrderStatus.Delivered)
                     {
-                        await SendOrderDeliveredEmail(volunteer.User);
+                        await SendOrderDeliveredEmail(order.User);
                     }
                     return RedirectToAction("DetailOrder", new { id = data.Id });
 

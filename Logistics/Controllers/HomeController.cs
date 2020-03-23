@@ -34,13 +34,14 @@ namespace Logistics.Controllers
             var checkUser = await CheckUser(register);
             if (checkUser != null)
             {
+                var user = await db.Users.Where(x => x.Id == checkUser.Id).SingleOrDefaultAsync();
                 var province = await db.Provinces.Where(x => x.IdProvince == "ID-JB").SingleOrDefaultAsync();
                 var newOrder = new Models.Order()
                 {
                     Id = Guid.NewGuid().ToString(),
                     Province = province,
                     Created = DateTimeOffset.Now,
-                    User = checkUser,
+                    User = user,
                     Status = Models.OrderStatus.Processing
                 };
                 db.Orders.Add(newOrder);
@@ -165,6 +166,7 @@ namespace Logistics.Controllers
             var order = await db.Orders.Include("Items").Include("Items.Item").Where(x => x.Id == id).OrderByDescending(x => x.Created).FirstOrDefaultAsync();
             if(order != null)
             {
+                ViewBag.Id = order.Id;
                 return View();
             }
             return RedirectToAction("Index");
@@ -180,29 +182,22 @@ namespace Logistics.Controllers
         [HttpPost]
         public async Task<ActionResult> SubmitData(ViewModels.Order data)
         {
-            if (ModelState.IsValid)
+            var order = await db.Orders.Where(x => x.Id == data.Id).SingleOrDefaultAsync();
+            if(order != null)
             {
-                var province = await db.Provinces.Where(x => x.IdProvince == "ID-JB").SingleOrDefaultAsync();
-                var user = await db.Users.Where(x => x.UserName == User.Identity.Name).SingleOrDefaultAsync();
-                var newOrder = new Models.Order()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Title = data.Title,
-                    Descriptions = data.Descriptions,
-                    Priority = data.Priority,
-                    Province = province,
-                    Created = DateTimeOffset.Now,
-                    User = user,
-                    DeliveryAddress = data.DeliveryAddress,
-                    Status = Models.OrderStatus.Processing
-                };
-                db.Orders.Add(newOrder);
+                order.Title = data.Title;
+                order.Priority = data.Priority;
+                order.Descriptions = data.Descriptions;
+                order.DeliveryAddress = data.DeliveryAddress;
+                order.Status = OrderStatus.Pending;
+                db.Entry(order).State = EntityState.Modified;
                 var result = await db.SaveChangesAsync();
                 if (result > 0)
                 {
                     return RedirectToAction("Finish");
                 }
             }
+            
             return View();
         }
 
