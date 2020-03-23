@@ -5666,6 +5666,7 @@
     <Content Include="Views\Administrators\Items.cshtml" />
     <Content Include="Views\Administrators\Orders.cshtml" />
     <Content Include="Views\Shared\_LayoutAdministrators.cshtml" />
+    <Content Include="Views\Home\DetailsItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

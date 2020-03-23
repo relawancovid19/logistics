@@ -128,6 +128,7 @@
                     <tr class="color-table">
                         <th>Nama Barang</th>
                         <th>Stok</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -136,6 +137,7 @@
                         <tr>
                             <td>@item.Name</td>
                             <td>@item.Amount @item.Unit.ToString()</td>
+                            <td><a class="btn btn-info" href="@Url.Action("DetailsItem", new { id = item.Id })">Detail</a></td>
                         </tr>
                     }
 

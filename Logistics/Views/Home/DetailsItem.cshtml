@@ -1,0 +1,80 @@
+﻿@model Logistics.Models.Item
+@{
+    ViewBag.Title = "Details Item";
+}
+
+
+<section class="g-py-80 g-mb-100">
+    <div class="container">
+        <!-- Article -->
+        <article class="row justify-content-between g-color-gray-dark-v5 u-shadow-v11 rounded g-pa-20 g-mb-30">
+            <div class="col-lg-5 g-mb-30">
+                <div class="g-mb-5">
+                    <img class="w-100" src="@Model.Images" alt="Image">
+                </div>
+            </div>
+
+            <!-- Article Content -->
+            <div class="col-lg-6 g-mb-30">
+                <header class="d-flex justify-content-between">
+                    <!-- Article Icons -->
+                    <h2 class="h2 g-color-black mb-0">@Model.Name</h2>
+                    <ul class="list-inline g-mb-0">
+                        <li class="list-inline-item">
+                            <a class="u-icon-v1 u-icon-size--sm g-color-gray-light-v2 g-color-primary--hover" href="#">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="u-icon-v1 u-icon-size--sm g-color-gray-light-v2 g-color-primary--hover" href="#">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="u-icon-v1 u-icon-size--sm g-color-gray-light-v2 g-color-primary--hover" href="#">
+                                <i class="fa fa-google-plus"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="u-icon-v1 u-icon-size--sm g-color-gray-light-v2 g-color-primary--hover" href="#">
+                                <i class="fa fa-pinterest"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- End Article Icons -->
+                </header>
+
+                <hr class="g-brd-gray-light-v3 g-my-15">
+
+
+                <div class="g-mb-25">@Html.Raw(HttpUtility.HtmlDecode(Model.Descriptions))</div>
+
+
+                <ul class="list-unstyled info-v5-3__info-list g-font-weight-700 g-color-black g-color-white--parent-hover g-font-size-16 text-uppercase g-mb-0">
+                    <li class="g-mb-20">
+                        <i class="g-color-primary g-color-white--parent-hover g-mr-2 fa fa-truck"></i>
+                        <small class="g-font-size-14">@Model.Amount @Model.Unit.ToString() barang Tersedia</small>
+                    </li>
+                </ul>
+                <!-- End Article Add -->
+
+                <hr class="g-brd-gray-light-v3 g-my-15">
+
+                <footer class="d-flex justify-content-between align-items-center">
+                    <div class="media g-font-size-14">
+                        <img class="d-flex mr-2 rounded-circle g-width-40 g-height-40" src="https://volunteer.blob.core.windows.net/images/banner/18972876-c9ec-4594-a226-ccb69c9734cf/logo-provinsi-jawa-barat.jpg" alt="Image Description">
+                        <div class="media-body align-self-center text-uppercase">
+                            <span class="u-link-v5 g-color-main g-color-primary--hover">Pemerintah Provinsi Jawa Barat</span>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <!-- End Article Content -->
+        </article>
+        <!-- End Article -->
+    </div>
+    
+</section>
+
+
+

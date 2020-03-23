@@ -240,5 +240,10 @@ namespace Logistics.Controllers
 
             return View();
         }
+        public async Task<ActionResult> DetailsItem(string id)
+        {
+            var detail = await db.Items.FindAsync(id);
+            return View(detail);
+        }
     }
 }
