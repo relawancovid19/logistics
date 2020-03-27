@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Logistics.Models.EmailTemplate>
+@{
+    Layout = "~/Views/Shared/_LayoutAdministrators.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col-md-6 col-8 align-self-center">
+        <h3 class="text-themecolor m-b-0 m-t-0">Email Template</h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Email Template</a></li>
+            <li class="breadcrumb-item active">Daftar Email Template</li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <p class="text-muted m-b-20">
+                    <a class="btn btn-info" href="@Url.Action("AddEmailTemplate")">Tambah Baru</a>
+                </p>
+                @if (Model != null)
+                {
+                    <div class="table-responsive">
+                        <table id="myTable" class="table table-bordered">
+                            <thead class="table-header">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Subject</th>
+                                    <th class="text-nowrap">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.IdEmailTemplate</td>
+                                        <td>@item.Subject</td>
+                                        <td class="text-nowrap">
+                                            <a href="@Url.Action("EditEmail", new { id = @item.IdEmailTemplate })" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil m-r-10"></i></a>
+                                            <a href="@Url.Action("EmailDetails", new { id = item.IdEmailTemplate })" data-toggle="tooltip" data-original-title="Details"><i class="fa fa-align-justify m-1"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Content/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

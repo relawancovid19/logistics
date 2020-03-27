@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Logistics.Models.Organization>
+﻿@model IEnumerable<Logistics.Models.Item>
 @{
     Layout = "~/Views/Shared/_LayoutAdministrators.cshtml";
 }
@@ -6,9 +6,9 @@
 <div class="row page-titles">
 
     <div class="col-md-6 col-8 align-self-center">
-        <h3 class="text-themecolor m-b-0 m-t-0">Semua Organisasi</h3>
+        <h3 class="text-themecolor m-b-0 m-t-0">Semua Barang</h3>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active">Kelola Organisasi</li>
+            <li class="breadcrumb-item active">Kelola Barang</li>
         </ol>
     </div>
 </div>
@@ -16,27 +16,33 @@
 
 <div class="card">
     <div class="card-body">
-        <p><a class="btn btn-info" href="@Url.Action("AddOrganization")">Tambah Organisasi</a> </p>
         <div class="table-responsive m-t-40">
             <table id="myTable" class="table table-bordered table-striped">
                 <thead class="table-header">
                     <tr class="color-table">
-                        <th>Full Name</th>
-                        <th>Email</th>
-                        <th>Institution</th>
-                        <th>Province</th>
+                        <th>Nama Barang</th>
+                        <th>Stok</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@item.FullName</td>
-                            <td>@item.Email</td>
-                            <td>@item.Institution</td>
-                            <td>@item.Province.Name</td>
+                            <td>@item.Name</td>
+                            <td>@item.Amount (@item.Unit.ToString())</td>
+                            <td>
+
+                                <a href="@Url.Action("AddStock", new { id = item.Id })" target="_blank" data-toggle="tooltip" data-original-title="Tambah Stok">
+                                    <i style="margin-left:5px" class="fa fa-plus m-1"></i>
+                                </a>
+                                <a href="@Url.Action("EditItem", new { id = item.Id })" target="_blank" data-toggle="tooltip" data-original-title="Edit">
+                                    <i class="fa fa-edit m-1"></i>
+                                </a>
+                            </td>
                         </tr>
                     }
+
                 </tbody>
             </table>
         </div>

@@ -1,0 +1,55 @@
+﻿@model Logistics.ViewModels.Order
+<section class="g-min-height-100vh g-flex-centered" style="background-image:url(/assets/images/backgrounds/background.jpg);">
+    <div class="container g-py-30">
+        <div class="row justify-content-center">
+            <div class="col-sm-8 col-lg-5">
+                <div class="u-shadow-v24 g-bg-white rounded g-py-40 g-px-30">
+                    <header class="text-center mb-4">
+                        <h2 class="g-font-size-18 g-font-size-20--md g-color-black g-font-weight-600">Isi Data dan Alamat Kamu</h2>
+                    </header>
+                    @using (Html.BeginForm("SubmitData", "Home", FormMethod.Post, new { @class = "form-horizontal form-material", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                <input type="hidden" name="Id" value="@ViewBag.Id" />
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                @Html.TextBoxFor(m => m.Title, new { @class = "form-control g-px-10 g-py-12", placeholder = "Judul Permintaan", required = "required" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-xs-12">
+                                @Html.TextAreaFor(m => m.Descriptions, new { @class = "form-control g-px-10 g-py-12", placeholder = "Jelaskan lebih detail permintaan Anda", required = "required" })
+                                @Html.ValidationMessageFor(m => m.Descriptions, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-xs-12">
+                                @Html.EnumDropDownListFor(m => m.Priority, new { @class = "form-control ", placeholder = "Prioritas", required = "required" })
+                                @Html.ValidationMessageFor(m => m.Priority, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-xs-12">
+                                @Html.TextAreaFor(m => m.DeliveryAddress, new { @class = "form-control g-px-10 g-py-12", placeholder = "Alamat Pengiriman", required = "required" })
+                                @Html.ValidationMessageFor(m => m.DeliveryAddress, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group text-center m-t-20">
+                            <div class="col-xs-12">
+                                <button id="register" type="submit" class="btn u-btn-primary btn-lg btn-block text-uppercase waves-effect waves-light">Pesan Sekarang</button>
+                            </div>
+                        </div>
+                        <div class="d-none d-sm-block d-md-none">
+                            <div class="h1" style="margin-bottom: 11.5rem"></div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

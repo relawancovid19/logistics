@@ -52,9 +52,13 @@
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=9.3.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAzure.Storage.9.3.3\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
+    <Reference Include="SendGrid, Version=9.13.1.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.9.13.1\lib\net452\SendGrid.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -195,6 +199,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\UploadFileHelper.cs" />
     <Compile Include="Infrastructures\ApplicationDbContext.cs" />
     <Compile Include="Migrations\202003180530175_Initial.cs" />
@@ -217,13 +222,19 @@
     <Compile Include="Migrations\202003191906529_Item_v1.Designer.cs">
       <DependentUpon>202003191906529_Item_v1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003221525216_EmailTemplate_V1.cs" />
+    <Compile Include="Migrations\202003221525216_EmailTemplate_V1.Designer.cs">
+      <DependentUpon>202003221525216_EmailTemplate_V1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\EmailTemplate.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\Province.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="ViewModels\EmailTemplate.cs" />
     <Compile Include="ViewModels\LogisticsViewModels.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -592,6 +603,7 @@
     <Content Include="assets\css\style-ava.css" />
     <Content Include="assets\css\style.css" />
     <Content Include="assets\css\styles.op-event.css" />
+    <Content Include="assets\css\table.css" />
     <Content Include="assets\css\unify-components.css" />
     <Content Include="assets\css\unify-core.css" />
     <Content Include="assets\css\unify-globals.css" />
@@ -599,6 +611,9 @@
     <Content Include="assets\images\backgrounds\background.jpg" />
     <Content Include="assets\images\backgrounds\banner1.jpg" />
     <Content Include="assets\images\backgrounds\banner2.jpg" />
+    <Content Include="assets\images\email-template\lines.png" />
+    <Content Include="assets\images\email-template\vector-approve.png" />
+    <Content Include="assets\images\email-template\vector-cancel.png" />
     <Content Include="assets\images\favicon\browserconfig.xml" />
     <Content Include="assets\images\icon\red.png" />
     <Content Include="assets\images\icon\relawan-icon.png" />
@@ -5642,6 +5657,20 @@
     <Content Include="Views\Shared\_LayoutAccount.cshtml" />
     <Content Include="Views\Organizations\DetailOrder.cshtml" />
     <Content Include="Views\Home\TrackingOrder.cshtml" />
+    <Content Include="Views\Home\InfoData.cshtml" />
+    <Content Include="Views\Home\Finish.cshtml" />
+    <Content Include="Views\Administrators\AddEmailTemplate.cshtml" />
+    <Content Include="Views\Administrators\AddStock.cshtml" />
+    <Content Include="Views\Administrators\DetailOrder.cshtml" />
+    <Content Include="Views\Administrators\EditEmail.cshtml" />
+    <Content Include="Views\Administrators\EditItem.cshtml" />
+    <Content Include="Views\Administrators\EmailDetails.cshtml" />
+    <Content Include="Views\Administrators\EmailTemplates.cshtml" />
+    <Content Include="Views\Administrators\Items.cshtml" />
+    <Content Include="Views\Administrators\Orders.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdministrators.cshtml" />
+    <Content Include="Views\Home\DetailsItem.cshtml" />
+    <Content Include="Views\Home\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -5675,6 +5704,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003191906529_Item_v1.resx">
       <DependentUpon>202003191906529_Item_v1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003221525216_EmailTemplate_V1.resx">
+      <DependentUpon>202003221525216_EmailTemplate_V1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -101,32 +101,107 @@ namespace Logistics.Controllers
         }
         public async Task<ActionResult> DetailOrder(string id)
         {
-            var order = await db.Orders.Include("Items").Include("User").Include("Province").Where(x => x.Id == id).SingleOrDefaultAsync();
-            ViewBag.Items = await db.Orders.Include("Items").Where(x => x.Id == id).ToListAsync();
+            var order = await db.Orders.Include("Items").Include("Delivery").Include("User").Include("Province").Include("Items.Item").Where(x => x.Id == id).SingleOrDefaultAsync();
+            ViewBag.Id = order.Id;
             return View(order);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> SubmitDelivered(ViewModels.Delivery delivery, string IdOrder)
+        {
+            var order = await db.Orders.Where(x => x.Id == IdOrder).SingleOrDefaultAsync();
+            if (order != null)
+            {
+                var newDelivery = new Models.Delivery()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Created = DateTimeOffset.Now,
+                    ETA = delivery.ETA,
+                    TrackingNumber = delivery.TrackingNumber,
+                    Service = delivery.Service,
+                    Status = Models.DeliveryStatus.Procesing
+                };
+                order.Delivery = newDelivery;
+                order.Status = Models.OrderStatus.Delivered;
+                db.Entry(order).State = EntityState.Modified;
+                var result = await db.SaveChangesAsync();
+                if (result > 0)
+                {
+                    return RedirectToAction("DetailOrder", new { id = IdOrder });
+                }
+            }
+            return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> DetailOrder(ViewModels.UpdateTransaction data)
         {
-            var volunteer = await db.Orders.Include("User").Where(x => x.Id == data.Id).SingleOrDefaultAsync();
-            if (volunteer != null)
+            var order = await db.Orders.Include("User").Where(x => x.Id == data.Id).SingleOrDefaultAsync();
+            if (order != null)
             {
-                volunteer.Status = data.Status;
-                db.Entry(volunteer).State = EntityState.Modified;
+                order.Status = data.Status;
+                db.Entry(order).State = EntityState.Modified;
                 var result = await db.SaveChangesAsync();
                 if (result > 0)
                 {
-                    //if (data.Status == Models.OrderStatus.Approved)
-                    //{
-                    //    await SendProgramRegistrationEmail(volunteer.Job, volunteer.Volunteer);
-
-                    //}
+                    if (data.Status == Models.OrderStatus.Approved)
+                    {
+                        await SendOrderApproveEmail(order.User);
+                    }
+                    else if (data.Status == Models.OrderStatus.Rejected)
+                    {
+                        await SendOrderRejectEmail(order.User);
+                    }
+                    else if (data.Status == Models.OrderStatus.Delivered)
+                    {
+                        await SendOrderDeliveredEmail(order.User);
+                    }
                     return RedirectToAction("DetailOrder", new { id = data.Id });
 
                 }
             }
             return View("Error");
+        }
+        private async Task SendOrderApproveEmail(Models.ApplicationUser user)
+        {
+            var emailTemplate = await db.EmailTemplates.FindAsync("approve-order");
+            var callbackUrl = Url.Action("TrackingOrder", "Home", null, protocol: Request.Url.Scheme);
+            if (emailTemplate != null)
+            {
+                var emailBody = emailTemplate.Content
+                    .Replace("[FullName]", user.FullName)
+                    .Replace("[Logo]", "https://logistics.relawancovid19.id/assets/images/logo/logo-relawan-covid19.png")
+                    .Replace("[Vector]", "~/assets/images/email-template/vector-approve.png")
+                    .Replace("[Line]", "~/assets/images/email-template/lines.png")
+                    .Replace("[Url]", callbackUrl);
+                await Helpers.EmailHelper.Send(emailTemplate.Subject, user.Email, user.FullName, emailBody);
+            }
+        }
+        private async Task SendOrderRejectEmail(Models.ApplicationUser user)
+        {
+            var emailTemplate = await db.EmailTemplates.FindAsync("reject-order");
+            if (emailTemplate != null)
+            {
+                var emailBody = emailTemplate.Content
+                    .Replace("[FullName]", user.FullName)
+                    .Replace("[Logo]", "https://logistics.relawancovid19.id/assets/images/logo/logo-relawan-covid19.png")
+                    .Replace("[Vector]", "~/assets/images/email-template/vector-cancel.png")
+                    .Replace("[Line]", "~/assets/images/email-template/lines.png");
+                await Helpers.EmailHelper.Send(emailTemplate.Subject, user.Email, user.FullName, emailBody);
+            }
+        }
+        private async Task SendOrderDeliveredEmail(Models.ApplicationUser user)
+        {
+            var emailTemplate = await db.EmailTemplates.FindAsync("delivered-order");
+            if (emailTemplate != null)
+            {
+                var emailBody = emailTemplate.Content
+                    .Replace("[FullName]", user.FullName)
+                    .Replace("[Logo]", "https://logistics.relawancovid19.id/assets/images/logo/logo-relawan-covid19.png")
+                    .Replace("[Vector]", "~/assets/images/email-template/vector-approve.png")
+                    .Replace("[Line]", "~/assets/images/email-template/lines.png");
+                await Helpers.EmailHelper.Send(emailTemplate.Subject, user.Email, user.FullName, emailBody);
+            }
         }
     }
 }
